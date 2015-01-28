@@ -7,11 +7,11 @@ require "browet/version"
 Gem::Specification.new do |s|
   s.name        = "browet"
   s.version     = Browet::VERSION
-  s.authors     = [""]
-  s.email       = [""]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Browet."
-  s.description = "TODO: Description of Browet."
+  s.authors     = ["WebiumDigital"]
+  s.email       = ["w@webium.digital"]
+  s.homepage    = "https://github.com/WebiumDigital/browet"
+  s.summary     = "Rails plugin for http://browet.com."
+  s.description = "Rails plugin for http://browet.com."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
