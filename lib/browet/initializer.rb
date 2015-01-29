@@ -2,7 +2,7 @@
 Browet.init do |config|
 
   # Browet API URL
-  config.url = 'http://browet.com/api/v1'
+  config.version = 'v1'
 
   # Browet API account
   config.account = 'your account'
