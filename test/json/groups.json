@@ -1,0 +1,76 @@
+[
+  {
+    "id": 1,
+    "title": "group title 1",
+    "name": "group name 1",
+    "root_categories": [
+      {
+        "id": 1,
+        "title": "root_categories title 1", 
+        "parent_id": null,
+        "group_id" : 1, 
+        "visible" : true,
+        "position" : 2,
+        "slug": "root_categories slug 1",
+        "subcategories": [
+          {
+          "id": 3,
+          "title": "root_categories title 3", 
+          "parent_id": 1,
+          "group_id" : 1, 
+          "visible" : true,
+          "position" : 2,
+          "slug": "root_categories slug 3",
+          "subcategories": []
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "root_categories title 2", 
+        "parent_id": null,
+        "group_id" : 1, 
+        "visible" : true,
+        "position" : 3,
+        "slug": "root_categories slug 2"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "group title 2",
+    "name": "group name 2",
+    "root_categories": [
+      {
+        "id": 4,
+        "title": "root_categories title 4", 
+        "parent_id": null,
+        "group_id" : 2, 
+        "visible" : true,
+        "position" : 2,
+        "slug": "root_categories slug 4",
+        "subcategories": [
+          {
+          "id": 6,
+          "title": "root_categories title 6", 
+          "parent_id": 1,
+          "group_id" : 1, 
+          "visible" : false,
+          "position" : 2,
+          "slug": "root_categories slug 6",
+          "subcategories": []
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "root_categories title 5", 
+        "parent_id": null,
+        "group_id" : 2, 
+        "visible" : true,
+        "position" : 6,
+        "slug": "root_categories slug 5"
+      }
+    ]
+  }
+]
