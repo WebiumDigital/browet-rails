@@ -14,7 +14,7 @@ module Browet
       @subcategories = hash['subcategories'].map{ |x| Browet::Category.new(x) }
     end
 
-    # hide listmethod
+    # hide list method
     class << self; undef list end
 
   end

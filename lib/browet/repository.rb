@@ -9,5 +9,11 @@ module Browet
       res.is_a?(Net::HTTPSuccess) ? ActiveSupport::JSON.decode(res.body) : nil
     end
 
+    protected
+
+      def self.page_suffix(page, limit)
+        (!page.nil? and !limit.nil?) ? "/page/#{page}/#{limit}" : ''
+      end
+
   end
 end

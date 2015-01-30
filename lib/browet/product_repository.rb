@@ -2,7 +2,7 @@ module Browet
   class ProductRepository < Browet::Repository
 
     def self.list(page, limit)
-      http_get("products/page/#{page}/#{limit}")
+      http_get("products#{page_suffix(page, limit)}")
     end
 
     def self.get(id)

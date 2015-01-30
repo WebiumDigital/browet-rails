@@ -10,6 +10,10 @@ class Browet::ProductTest < EntityTestCase
     stub_get_request 'products/search', json_string('products'), {title: 'product title 1'}
   end
 
+  test "for valid products response" do
+    assert_not_respond_to Browet::Product, :products
+  end
+
   test "for valid get response" do
     product = Browet::Product.get(1)
     

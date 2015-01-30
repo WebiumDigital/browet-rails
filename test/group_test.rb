@@ -7,6 +7,8 @@ class Browet::GroupTest < EntityTestCase
     super(a)
     stub_get_request 'categories_groups', json_string('groups')
     stub_get_request 'categories_groups/1', json_string('group1')
+    stub_get_request 'categories_groups/1/products/page/1/10', json_string('products')
+    stub_get_request 'categories_groups/1/products', json_string('products')
   end
 
   test "for valid list response" do
@@ -58,6 +60,70 @@ class Browet::GroupTest < EntityTestCase
     assert_equal 1, category1.group_id, 'Invalid category group id'
     assert_kind_of Array, category1.subcategories
     assert_empty category1.subcategories
+  end
+
+  test "for valid products paged response" do
+    group = Browet::Group.get(1)
+    products = group.products(1, 10)
+    
+    assert_kind_of Array, products
+    assert_equal 2, products.length 
+
+    product0 = products[0]
+    assert_instance_of Browet::Product, product0
+    assert_equal 1, product0.id
+    assert_equal "product description 1", product0.description
+    assert_equal "product title 1", product0.title
+    assert_equal "guid 1", product0.guid
+    assert_equal "mpn 1", product0.mpn
+    assert_equal "slug 1", product0.slug
+    assert product0.availability
+    assert_equal "gtin 1", product0.gtin
+    assert_equal "currency 1", product0.currency
+
+    product1 = products[1]
+    assert_instance_of Browet::Product, product1
+    assert_equal 2, product1.id
+    assert_equal "product description 2", product1.description
+    assert_equal "product title 2", product1.title
+    assert_equal "guid 2", product1.guid
+    assert_equal "mpn 2", product1.mpn
+    assert_equal "slug 2", product1.slug
+    assert_not product1.availability
+    assert_equal "gtin 2", product1.gtin
+    assert_equal "currency 2", product1.currency
+  end
+
+  test "for valid products response" do
+    group = Browet::Group.get(1)
+    products = group.products
+    
+    assert_kind_of Array, products
+    assert_equal 2, products.length 
+
+    product0 = products[0]
+    assert_instance_of Browet::Product, product0
+    assert_equal 1, product0.id
+    assert_equal "product description 1", product0.description
+    assert_equal "product title 1", product0.title
+    assert_equal "guid 1", product0.guid
+    assert_equal "mpn 1", product0.mpn
+    assert_equal "slug 1", product0.slug
+    assert product0.availability
+    assert_equal "gtin 1", product0.gtin
+    assert_equal "currency 1", product0.currency
+
+    product1 = products[1]
+    assert_instance_of Browet::Product, product1
+    assert_equal 2, product1.id
+    assert_equal "product description 2", product1.description
+    assert_equal "product title 2", product1.title
+    assert_equal "guid 2", product1.guid
+    assert_equal "mpn 2", product1.mpn
+    assert_equal "slug 2", product1.slug
+    assert_not product1.availability
+    assert_equal "gtin 2", product1.gtin
+    assert_equal "currency 2", product1.currency
   end
 
 end

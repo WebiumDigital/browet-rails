@@ -22,5 +22,10 @@ module Browet
       self.new(entity) unless entity.nil?
     end
 
+    def products(page = nil, limit = nil)
+      products = self.class.repository.products(id, page, limit)
+      products.map{ |x| Browet::Product.new(x) } unless products.nil?      
+    end
+
   end
 end

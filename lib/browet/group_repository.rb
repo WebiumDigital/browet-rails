@@ -9,5 +9,9 @@ module Browet
       http_get("categories_groups/#{id}")
     end
 
+    def self.products(id, page, limit)
+      http_get("categories_groups/#{id}/products#{page_suffix(page, limit)}")
+    end
+
   end
 end
