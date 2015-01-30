@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "description": "product description 1", 
+    "title": "product title 1", 
+    "guid": "guid 1",
+    "mpn" : "mpn 1", 
+    "slug" : "slug 1",
+    "availability" : true,
+    "gtin": "gtin 1",
+    "currency": "currency 1"
+  },
+  {
+    "id": 2,
+    "description": "product description 2", 
+    "title": "product title 2", 
+    "guid": "guid 2",
+    "mpn" : "mpn 2", 
+    "slug" : "slug 2",
+    "availability" : false,
+    "gtin": "gtin 2",
+    "currency": "currency 2"
+  }
+]
