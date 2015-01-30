@@ -1,0 +1,21 @@
+{
+  "id": 1,
+  "title": "root_categories title 1", 
+  "parent_id": null,
+  "group_id" : 1, 
+  "visible" : true,
+  "position" : 2,
+  "slug": "root_categories slug 1",
+  "subcategories": [
+    {
+    "id": 3,
+    "title": "root_categories title 3", 
+    "parent_id": 1,
+    "group_id" : 1, 
+    "visible" : true,
+    "position" : 2,
+    "slug": "root_categories slug 3",
+    "subcategories": []
+    }
+  ]
+}
