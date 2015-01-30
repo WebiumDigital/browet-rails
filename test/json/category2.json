@@ -1,0 +1,15 @@
+{
+  "id": 2,
+  "title": "category title 2", 
+  "parent_id": null,
+  "group_id": 2,
+  "visible" : null,
+  "position" : 1,
+  "slug": "category slug 2",
+  "group" : {
+    "id": 2,
+    "name": "group name 2",
+    "title": "group title 2"
+  },
+  "subcategories": []
+}

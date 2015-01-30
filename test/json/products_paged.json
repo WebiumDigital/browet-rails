@@ -1,0 +1,26 @@
+{
+  "products": [
+    {
+      "id": 3,
+      "description": "product description 3", 
+      "title": "product title 3", 
+      "guid": "guid 3",
+      "mpn" : "mpn 3", 
+      "slug" : "slug 3",
+      "availability" : "availability 3",
+      "status" : "status 3",
+      "gtin": "gtin 3",
+      "currency": "currency 3",
+      "brand": "brand 3",
+      "category_ids": [3,1],
+      "properties": [],
+      "categories": [],
+      "pictures": [],
+      "cover":null
+    }
+  ],
+  "meta": {
+    "total_count":3,
+    "pages":2
+  }
+}

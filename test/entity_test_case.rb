@@ -14,4 +14,68 @@ class EntityTestCase < ActiveSupport::TestCase
 
     end
 
+    def product_list_tests(products, clss)
+      assert_kind_of Array, products
+      assert_equal 3, products.length 
+
+      product1 = products[0]
+      assert_instance_of Browet::Product, product1
+      assert_equal 1, product1.id
+      assert_equal "product description 1", product1.description
+      assert_equal "product title 1", product1.title
+      assert_equal "guid 1", product1.guid
+      assert_equal "mpn 1", product1.mpn
+      assert_equal "slug 1", product1.slug
+      assert_equal "availability 1", product1.availability
+      assert_equal "gtin 1", product1.gtin
+      assert_equal "currency 1", product1.currency
+
+      product2 = products[1]
+      assert_instance_of Browet::Product, product2
+      assert_equal 2, product2.id
+      assert_equal "product description 2", product2.description
+      assert_equal "product title 2", product2.title
+      assert_equal "guid 2", product2.guid
+      assert_equal "mpn 2", product2.mpn
+      assert_equal "slug 2", product2.slug
+      assert_equal "availability 2", product2.availability
+      assert_equal "gtin 2", product2.gtin
+      assert_equal "currency 2", product2.currency
+
+      product3 = products[2]
+      assert_instance_of Browet::Product, product3
+      assert_equal 3, product3.id
+      assert_equal "product description 3", product3.description
+      assert_equal "product title 3", product3.title
+      assert_equal "guid 3", product3.guid
+      assert_equal "mpn 3", product3.mpn
+      assert_equal "slug 3", product3.slug
+      assert_equal "availability 3", product3.availability
+      assert_equal "gtin 3", product3.gtin
+      assert_equal "currency 3", product3.currency
+
+      assert_equal 3, clss.total_count
+      assert_equal 1, clss.pages
+    end
+
+    def product_list_paged_tests(products, clss)
+      assert_kind_of Array, products
+      assert_equal 1, products.length 
+
+      product3 = products[0]
+      assert_instance_of Browet::Product, product3
+      assert_equal 3, product3.id
+      assert_equal "product description 3", product3.description
+      assert_equal "product title 3", product3.title
+      assert_equal "guid 3", product3.guid
+      assert_equal "mpn 3", product3.mpn
+      assert_equal "slug 3", product3.slug
+      assert_equal "availability 3", product3.availability
+      assert_equal "gtin 3", product3.gtin
+      assert_equal "currency 3", product3.currency
+
+      assert_equal 3, clss.total_count
+      assert_equal 2, clss.pages
+    end
+
 end

@@ -7,27 +7,28 @@ class Browet::GroupTest < EntityTestCase
     super(a)
     stub_get_request 'categories_groups', json_string('groups')
     stub_get_request 'categories_groups/1', json_string('group1')
-    stub_get_request 'categories_groups/1/products/page/1/10', json_string('products')
+    stub_get_request 'categories_groups/2', json_string('group2')
     stub_get_request 'categories_groups/1/products', json_string('products')
+    stub_get_request 'categories_groups/1/products/page/2/2', json_string('products_paged')
   end
 
   test "for valid list response" do
     groups = Browet::Group.list
     assert_kind_of Array, groups
 
-    group0 = groups[0]
-    assert_instance_of Browet::Group, group0
-    assert_equal 1, group0.id, 'Invalid group id'
-    assert_equal 'group title 1', group0.title, 'Invalid group title'
-    assert_equal 'group name 1', group0.name, 'Invalid group name'
-    assert_kind_of Array, group0.categories
-    assert_not_empty group0.categories
+    group1 = groups[0]
+    assert_instance_of Browet::Group, group1
+    assert_equal 1, group1.id
+    assert_equal 'group title 1', group1.title
+    assert_equal 'group name 1', group1.name
+    assert_kind_of Array, group1.categories
+    assert_not_empty group1.categories
 
-    group2 = groups[2]
+    group2 = groups[1]
     assert_instance_of Browet::Group, group2
-    assert_equal 3, group2.id, 'Invalid group id'
-    assert_equal 'group title 3', group2.title, 'Invalid group title'
-    assert_equal 'group name 3', group2.name, 'Invalid group name'
+    assert_equal 2, group2.id
+    assert_equal 'group title 2', group2.title
+    assert_equal 'group name 2', group2.name
     assert_kind_of Array, group2.categories
     assert_empty group2.categories
   end
@@ -36,94 +37,43 @@ class Browet::GroupTest < EntityTestCase
     group = Browet::Group.get(1)
     
     assert_kind_of Browet::Group, group
-    assert_equal 1, group.id, 'Invalid group id'
-    assert_equal 'group title 1', group.title, 'Invalid group title'
-    assert_equal 'group name 1', group.name, 'Invalid group name'
+    assert_equal 1, group.id
+    assert_equal 'group title 1', group.title
+    assert_equal 'group name 1', group.name
     
     assert_kind_of Array, group.categories
-    category0 = group.categories[0]
-    assert_equal 1, category0.id, 'Invalid category id'
-    assert_equal 'root_categories title 1', category0.title, 'Invalid category title'
-    assert_nil category0.parent_id, 'Invalid parent_id name'
-    assert_equal 1, category0.group_id, 'Invalid category group id'
-    assert_kind_of Array, category0.subcategories
-    subcategory0 = category0.subcategories[0]
-    assert_equal 3, subcategory0.id, 'Invalid category id'
-    assert_equal 'root_categories title 3', subcategory0.title, 'Invalid category title'
-    assert_equal 1, subcategory0.parent_id, 'Invalid category parent_id name'
-    assert_equal 1, subcategory0.group_id, 'Invalid category group id'
-
-    category1 = group.categories[1]
-    assert_equal 2, category1.id, 'Invalid category id'
-    assert_equal 'root_categories title 2', category1.title, 'Invalid category title'
-    assert_nil category1.parent_id, 'Invalid parent_id name'
-    assert_equal 1, category1.group_id, 'Invalid category group id'
+    category1 = group.categories[0]
+    assert_equal 1, category1.id
+    assert_equal 'category title 1', category1.title
+    assert_nil category1.parent_id
+    assert_equal 1, category1.group_id
     assert_kind_of Array, category1.subcategories
-    assert_empty category1.subcategories
+    category3 = category1.subcategories[0]
+    assert_equal 3, category3.id
+    assert_equal 'category title 3', category3.title
+    assert_equal 1, category3.parent_id
+    assert_equal 1, category3.group_id
+
+    category2 = group.categories[1]
+    assert_equal 2, category2.id
+    assert_equal 'category title 2', category2.title
+    assert_nil category2.parent_id
+    assert_equal 2, category2.group_id
+    assert_kind_of Array, category2.subcategories
+    assert_empty category2.subcategories
   end
 
-  test "for valid products paged response" do
-    group = Browet::Group.get(1)
-    products = group.products(1, 10)
-    
-    assert_kind_of Array, products
-    assert_equal 2, products.length 
-
-    product0 = products[0]
-    assert_instance_of Browet::Product, product0
-    assert_equal 1, product0.id
-    assert_equal "product description 1", product0.description
-    assert_equal "product title 1", product0.title
-    assert_equal "guid 1", product0.guid
-    assert_equal "mpn 1", product0.mpn
-    assert_equal "slug 1", product0.slug
-    assert product0.availability
-    assert_equal "gtin 1", product0.gtin
-    assert_equal "currency 1", product0.currency
-
-    product1 = products[1]
-    assert_instance_of Browet::Product, product1
-    assert_equal 2, product1.id
-    assert_equal "product description 2", product1.description
-    assert_equal "product title 2", product1.title
-    assert_equal "guid 2", product1.guid
-    assert_equal "mpn 2", product1.mpn
-    assert_equal "slug 2", product1.slug
-    assert_not product1.availability
-    assert_equal "gtin 2", product1.gtin
-    assert_equal "currency 2", product1.currency
-  end
 
   test "for valid products response" do
     group = Browet::Group.get(1)
     products = group.products
-    
-    assert_kind_of Array, products
-    assert_equal 2, products.length 
+    product_list_tests(products, Browet::Group)
+  end
 
-    product0 = products[0]
-    assert_instance_of Browet::Product, product0
-    assert_equal 1, product0.id
-    assert_equal "product description 1", product0.description
-    assert_equal "product title 1", product0.title
-    assert_equal "guid 1", product0.guid
-    assert_equal "mpn 1", product0.mpn
-    assert_equal "slug 1", product0.slug
-    assert product0.availability
-    assert_equal "gtin 1", product0.gtin
-    assert_equal "currency 1", product0.currency
-
-    product1 = products[1]
-    assert_instance_of Browet::Product, product1
-    assert_equal 2, product1.id
-    assert_equal "product description 2", product1.description
-    assert_equal "product title 2", product1.title
-    assert_equal "guid 2", product1.guid
-    assert_equal "mpn 2", product1.mpn
-    assert_equal "slug 2", product1.slug
-    assert_not product1.availability
-    assert_equal "gtin 2", product1.gtin
-    assert_equal "currency 2", product1.currency
+  test "for valid products paged response" do
+    group = Browet::Group.get(1)
+    products = group.products(2, 2)
+    product_list_paged_tests(products, Browet::Group)
   end
 
 end

@@ -1,0 +1,18 @@
+{
+  "id": 2,
+  "description": "product description 2", 
+  "title": "product title 2", 
+  "guid": "guid 2",
+  "mpn" : "mpn 2", 
+  "slug" : "slug 2",
+  "availability" : "availability 2",
+  "status" : "status 2",
+  "gtin": "gtin 2",
+  "currency": "currency 2",
+  "brand": "brand 2",
+  "category_ids": [2,3],
+  "properties": [],
+  "categories": [],
+  "pictures": [],
+  "cover":null
+}

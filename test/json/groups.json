@@ -1,85 +1,63 @@
-[
-  {
-    "id": 1,
-    "title": "group title 1",
-    "name": "group name 1",
-    "root_categories": [
-      {
-        "id": 1,
-        "title": "root_categories title 1", 
-        "parent_id": null,
-        "group_id" : 1, 
-        "visible" : true,
-        "position" : 2,
-        "slug": "root_categories slug 1",
-        "subcategories": [
-          {
-          "id": 3,
-          "title": "root_categories title 3", 
-          "parent_id": 1,
-          "group_id" : 1, 
-          "visible" : true,
+{
+  "categories_groups": [
+    {
+      "id": 1,
+      "title": "group title 1",
+      "name": "group name 1",
+      "categories": [
+        {
+          "id": 1,
+          "title": "category title 1", 
+          "parent_id": null,
+          "group_id": 1,
+          "visible" : null,
           "position" : 2,
-          "slug": "root_categories slug 3",
+          "slug": "category slug 1",
+          "group" : {
+            "id": 1,
+            "name": "group name 1",
+            "title": "group title 1"
+          },
+          "subcategories": [
+            {
+              "id": 3,
+              "title": "category title 3", 
+              "parent_id": 1,
+              "group_id": 1,
+              "visible" : null,
+              "position" : 1,
+              "slug": "category slug 3",
+              "group" : {
+                "id": 1,
+                "name": "group name 1",
+                "title": "group title 1"
+              },
+              "subcategories": []
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "category title 2", 
+          "parent_id": null,
+          "group_id": 2,
+          "visible" : null,
+          "position" : 1,
+          "slug": "category slug 2",
+          "group" : {
+            "id": 2,
+            "name": "group name 2",
+            "title": "group title 2"
+          },
           "subcategories": []
-          }
-        ]
-      },
-      {
-        "id": 2,
-        "title": "root_categories title 2", 
-        "parent_id": null,
-        "group_id" : 1, 
-        "visible" : true,
-        "position" : 3,
-        "slug": "root_categories slug 2",
-        "subcategories": []
-      }
-    ]
-  },
-  {
-    "id": 2,
-    "title": "group title 2",
-    "name": "group name 2",
-    "root_categories": [
-      {
-        "id": 4,
-        "title": "root_categories title 4", 
-        "parent_id": null,
-        "group_id" : 2, 
-        "visible" : true,
-        "position" : 2,
-        "slug": "root_categories slug 4",
-        "subcategories": [
-          {
-          "id": 6,
-          "title": "root_categories title 6", 
-          "parent_id": 1,
-          "group_id" : 1, 
-          "visible" : false,
-          "position" : 2,
-          "slug": "root_categories slug 6",
-          "subcategories": []
-          }
-        ]
-      },
-      {
-        "id": 5,
-        "title": "root_categories title 5", 
-        "parent_id": null,
-        "group_id" : 2, 
-        "visible" : true,
-        "position" : 6,
-        "slug": "root_categories slug 5",
-        "subcategories": []
-      }
-    ]
-  },
-  {
-    "id": 3,
-    "title": "group title 3",
-    "name": "group name 3",
-    "root_categories": [
-    ]
-  }
-]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "group title 2",
+      "name": "group name 2",
+      "categories": []
+    }
+  ]
+}

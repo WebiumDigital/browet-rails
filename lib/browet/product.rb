@@ -7,15 +7,16 @@ module Browet
     @repository = Browet::ProductRepository
     @attributes = [:id, :description, :title, :guid, :mpn, :slug, 
       :availability, :gtin, :currency]
+    @list_root = :products
 
     def self.list(page = nil, limit = nil)
       products = repository.list(page, limit)
-      products.map{ |x| self.new(x) } unless products.nil?
+      form_products(products)
     end
 
     def self.find(params)
       products = repository.find(params)
-      products.map{ |x| self.new(x) } unless products.nil?
+      form_products(products)
     end
 
     # hide products method

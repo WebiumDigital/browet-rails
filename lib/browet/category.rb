@@ -6,6 +6,7 @@ module Browet
     
     @repository = Browet::CategoryRepository
     @attributes = [:id, :title, :parent_id, :group_id]
+    @list_root = :categories
 
     attr_accessor :subcategories
 
