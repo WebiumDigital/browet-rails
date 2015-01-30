@@ -31,7 +31,8 @@
       "group_id" : 1, 
       "visible" : true,
       "position" : 3,
-      "slug": "root_categories slug 2"
+      "slug": "root_categories slug 2",
+      "subcategories": []
     }
   ]
 }

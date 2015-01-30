@@ -1,6 +1,4 @@
-require "browet/group"
 require "browet/config"
-require "browet/repositoty"
 
 module Browet
 

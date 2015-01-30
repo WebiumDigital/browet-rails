@@ -1,8 +1,7 @@
 module Browet
-  module Repository
-    extend self
+  class Repository
 
-    def get(path)
+    def self.http_get(path)
       uri = URI("#{Browet::Config.api_url}/#{path}")
       uri.query = URI.encode_www_form({token: Browet::Config.key})
 
