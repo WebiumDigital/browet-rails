@@ -1,5 +1,6 @@
 require 'test_helper'
 require "browet/product"
+require "browet/result_set"
 
 class Browet::ProductTest < EntityTestCase
 
@@ -34,17 +35,17 @@ class Browet::ProductTest < EntityTestCase
 
   test "for valid list response" do
     products = Browet::Product.list
-    product_list_tests(products, Browet::Product)
+    product_list_tests(products)
   end
 
   test "for valid list paged response" do
     products = Browet::Product.list(2, 2)
-    product_list_paged_tests(products, Browet::Product)
+    product_list_paged_tests(products)
   end
 
   test "for valid find response" do
     products = Browet::Product.find({title: 'product title 1'})
-    product_list_tests(products, Browet::Product)
+    product_list_tests(products)
   end
 
 end

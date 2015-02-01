@@ -3,9 +3,7 @@ require 'browet/repository'
 module Browet
   class Entity
     
-    class << self; 
-      attr_accessor :attributes, :repository, :list_root, :total_count, :pages 
-    end
+    class << self; attr_accessor :attributes, :repository, :list_root end
 
     def initialize(hash)
       self.class.attributes.each do |attr|
@@ -17,7 +15,13 @@ module Browet
     
     def self.list
       entities = repository.list
-      entities[list_root.to_s].map{ |x| self.new(x) } unless entities.nil?
+      unless entities.nil?
+        Browet::ResultSet.new(
+          entities[list_root.to_s].map{ |x| self.new(x) }, 
+          entities[list_root.to_s].length, 1)
+      else
+        Browet::ResultSet.new
+      end
     end
 
     def self.get(id)
@@ -33,9 +37,13 @@ module Browet
     protected
 
       def self.form_products(products)
-        @total_count = products['meta']['total_count']
-        @pages = products['meta']['pages']
-        products['products'].map{ |x| Browet::Product.new(x) } unless products.nil?      
+        unless products.nil?
+          Browet::ResultSet.new(
+            products['products'].map{ |x| Browet::Product.new(x) },
+            products['meta']['total_count'], products['meta']['pages'])
+        else
+          Browet::ResultSet.new
+        end
       end
 
   end

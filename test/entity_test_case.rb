@@ -14,8 +14,8 @@ class EntityTestCase < ActiveSupport::TestCase
 
     end
 
-    def product_list_tests(products, clss)
-      assert_kind_of Array, products
+    def product_list_tests(products)
+      assert_kind_of Browet::ResultSet, products
       assert_equal 3, products.length 
 
       product1 = products[0]
@@ -54,12 +54,12 @@ class EntityTestCase < ActiveSupport::TestCase
       assert_equal "gtin 3", product3.gtin
       assert_equal "currency 3", product3.currency
 
-      assert_equal 3, clss.total_count
-      assert_equal 1, clss.pages
+      assert_equal 3, products.total_count
+      assert_equal 1, products.pages
     end
 
-    def product_list_paged_tests(products, clss)
-      assert_kind_of Array, products
+    def product_list_paged_tests(products)
+      assert_kind_of Browet::ResultSet, products
       assert_equal 1, products.length 
 
       product3 = products[0]
@@ -74,8 +74,8 @@ class EntityTestCase < ActiveSupport::TestCase
       assert_equal "gtin 3", product3.gtin
       assert_equal "currency 3", product3.currency
 
-      assert_equal 3, clss.total_count
-      assert_equal 2, clss.pages
+      assert_equal 3, products.total_count
+      assert_equal 2, products.pages
     end
 
 end

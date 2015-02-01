@@ -14,7 +14,7 @@ class Browet::GroupTest < EntityTestCase
 
   test "for valid list response" do
     groups = Browet::Group.list
-    assert_kind_of Array, groups
+    assert_kind_of Browet::ResultSet, groups
 
     group1 = groups[0]
     assert_instance_of Browet::Group, group1
@@ -67,13 +67,13 @@ class Browet::GroupTest < EntityTestCase
   test "for valid products response" do
     group = Browet::Group.get(1)
     products = group.products
-    product_list_tests(products, Browet::Group)
+    product_list_tests(products)
   end
 
   test "for valid products paged response" do
     group = Browet::Group.get(1)
     products = group.products(2, 2)
-    product_list_paged_tests(products, Browet::Group)
+    product_list_paged_tests(products)
   end
 
 end

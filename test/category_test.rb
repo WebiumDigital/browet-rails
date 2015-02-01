@@ -36,13 +36,13 @@ class Browet::CategoryTest < EntityTestCase
   test "for valid products response" do
     group = Browet::Category.get(1)
     products = group.products
-    product_list_tests(products, Browet::Category)
+    product_list_tests(products)
   end
 
   test "for valid products paged response" do
     group = Browet::Category.get(1)
     products = group.products(2, 2)
-    product_list_paged_tests(products, Browet::Category)
+    product_list_paged_tests(products)
   end
 
 end
