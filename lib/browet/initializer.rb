@@ -5,9 +5,9 @@ Browet.init do |config|
   config.version = 'v1'
 
   # Browet API account
-  config.account = 'your account'
+  config.account = ''
 
   # Browet API key
-  config.key = 'your key'
+  config.key = ''
 
 end

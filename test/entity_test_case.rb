@@ -1,5 +1,11 @@
 class EntityTestCase < ActiveSupport::TestCase
 
+  def initialize(a)
+    super a
+    Browet::Config.account = 'account'
+    Browet::Config.key = 'key'
+  end
+
   protected
 
     def json_string(name)

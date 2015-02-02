@@ -12,10 +12,10 @@ module Browet
       @version ||= 'v1'
     end
     def account
-      @account ||= 'account'
+      @account ||= ''
     end
     def key
-      @key ||= 'key'
+      @key ||= ''
     end
   end
 end
