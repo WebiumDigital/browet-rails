@@ -2,6 +2,7 @@ require "browet/config"
 require "browet/group"
 require "browet/category"
 require "browet/product"
+require "browet/result_set"
 require 'browet/railtie' if defined?(Rails)
 
 module Browet
