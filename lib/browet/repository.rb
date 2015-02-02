@@ -1,10 +1,12 @@
+require 'json'
+
 module Browet
   class Repository
 
     def self.http_get(path, params = {})
       
-      raise 'Empty account in config' if Browet::Config.account.blank?
-      raise 'Empty key in config' if Browet::Config.key.blank?
+      raise 'Empty account in config' if Browet::Config.account.empty?
+      raise 'Empty key in config' if Browet::Config.key.empty?
 
       uri = URI("#{Browet::Config.api_url}/#{path}")
       uri.query = URI.encode_www_form(params.merge({token: Browet::Config.key}))
@@ -13,7 +15,7 @@ module Browet
       
       # res.is_a?(Net::HTTPSuccess) ? ActiveSupport::JSON.decode(res.body) : nil
       raise "Error #{res.code}" unless res.is_a?(Net::HTTPSuccess)
-      ActiveSupport::JSON.decode(res.body)
+      JSON.parse(res.body)
     end
 
     protected
