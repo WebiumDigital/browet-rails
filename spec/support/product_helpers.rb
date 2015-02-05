@@ -7,7 +7,7 @@ module EntityHelpers
     stub_get_request 'products/3', json_string('product3')
     stub_get_request 'products', json_string('products')
     stub_get_request 'products/page/2/2', json_string('products_paged')
-    stub_get_request 'products/search', json_string('products'), {title: 'product title 1'}
+    stub_get_request 'products/search', json_string('products_find'), {title: 'product title 1'}
   end
 
   def should_be_product_1(product)
@@ -63,6 +63,13 @@ module EntityHelpers
     expect(products.pages).to eq(2)
     expect(products.length).to eq(1)
     should_be_product_3 products[0]
+  end
+
+  def should_be_find_set(products)
+    expect(products.total_count).to eq(1)
+    expect(products.pages).to eq(1)
+    expect(products.length).to eq(1)
+    should_be_product_1 products[0]
   end
 
 end

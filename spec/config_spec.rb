@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe Browet::Group do
+RSpec.describe Browet::Config do
   include EntityHelpers
 
   context "when invalid config" do
