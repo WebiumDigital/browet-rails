@@ -1,7 +1,7 @@
 module Browet
   module Config
     extend self
-    attr_accessor :version, :account, :key
+    attr_accessor :version, :account, :key, :ttl
 
     def api_url
       "http://#{account}.browet.com/api/#{version}"

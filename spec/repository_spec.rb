@@ -3,34 +3,52 @@ require "spec_helper"
 RSpec.describe Browet::Repository do
   include EntityHelpers
 
-  # context "when correct config" do
-  #   before(:context) do
-  #     product_init  # use product entity for repository checks
-  #   end
+  context "when correct config" do
+    before(:context) do
+      config_init
+      Browet::Cache.establish_connection(
+        :adapter  => "postgresql",
+        :host     => "localhost",
+        :username => "browet",
+        :password => "browet",
+        :database => "browet"
+      )
+    end
 
-  #   it "responds to get 1" do
-  #     category = Browet::Product.get(1)
-  #     should_be_category_1(category)
-  #   end
+    context "when empty cache" do
+      # before(:context) do
+      #   @cache = mock(Browet::Cache)
+      #   @cahce.stub!(:get).with("product").and_return(nil)
+      # end
 
-  #   it "responds to get 2" do
-  #     category = Browet::Product.get(2)
-  #     should_be_category_2(category)
-  #   end
+      it "shoud make http request and refresh cache" do
+        cache = Browet::Cache
+        expect(cache.all.length).to eq(0)
+      end
+    end
 
-  #   it "responds to get 3" do
-  #     category = Browet::Product.get(3)
-  #     should_be_category_3(category)
-  #   end
+    context "when nonempty cache" do
 
-  #   it "responds to list" do
-  #     should_be_unpaged_set Browet::Product
-  #   end
+      context "when nondirty cahce" do
+        it "should not make http request and return result from cache" do
+        end
+      end
 
-  #   it "has group 1 containing paged products" do
-  #     should_be_paged_set Browet::Group.get(1)
-  #   end
+      context "when dirty cahce" do
 
-  # end
+        context "when success server reply" do
+          it "shoud make http request and refresh cache" do
+          end
+        end
 
+        context "when server reply timeout" do
+          it "shoud make http request and return result from cache" do
+          end
+        end
+
+      end
+
+    end
+
+  end
 end

@@ -1,3 +1,6 @@
+require 'rails/generators'
+require "rails/generators/active_record"
+
 module Browet
   class InstallGenerator < Rails::Generators::Base
     desc "Installs Browet plugin"

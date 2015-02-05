@@ -23,4 +23,10 @@ module EntityHelpers
       to_return(:status => 401, :body => "", :headers => {})
   end
 
+  def init_server_timeout
+    WebMock.stub_request(:any, Browet::Config.api_url + "/products").
+      with(:query => {"token" => Browet::Config.key}).
+      to_timeout
+  end
+
 end

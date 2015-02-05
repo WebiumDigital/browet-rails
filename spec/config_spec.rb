@@ -25,16 +25,27 @@ RSpec.describe Browet::Config do
     it "has correct url" do
       expect(Browet::Config.api_url).to eq('http://account.browet.com/api/v1')
     end
-  end
 
-  context "when invalid account" do
-    before(:context) do
-      config_init
-      init_invalid_account
+    context "when invalid account" do
+      before(:context) do
+        init_invalid_account
+      end
+
+      it "raise http error" do
+        expect { Browet::Group.list }.to raise_error(Browet::HttpError)
+      end
     end
 
-    it "raise http error" do
-      expect { Browet::Group.list }.to raise_error(Browet::HttpError)
+    context "when server timeout" do
+      before(:context) do
+        init_server_timeout
+      end
+
+      it "raise http error" do
+        expect { Browet::Product.list }.to raise_error(Timeout::Error)
+      end
     end
+   
   end
+
 end

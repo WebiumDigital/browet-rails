@@ -1,6 +1,13 @@
 require 'json'
+require 'active_record'
 
 module Browet
+
+  class Cache < ::ActiveRecord::Base
+    self.table_name = 'browet_cache'
+    serialize :params
+  end
+
   class Repository
 
     def self.http_get(path, params = {})
