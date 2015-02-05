@@ -17,4 +17,10 @@ module EntityHelpers
     Browet::Config.key = 'key'
   end
 
+  def init_invalid_account
+    WebMock.stub_request(:get, Browet::Config.api_url + "/categories_groups").
+      with(:query => {"token" => Browet::Config.key}).
+      to_return(:status => 401, :body => "", :headers => {})
+  end
+
 end

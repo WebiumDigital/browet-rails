@@ -3,6 +3,7 @@ require "browet/group"
 require "browet/category"
 require "browet/product"
 require "browet/result_set"
+require "browet/error"
 require 'browet/railtie' if defined?(Rails)
 
 module Browet

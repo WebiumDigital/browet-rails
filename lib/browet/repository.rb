@@ -5,8 +5,8 @@ module Browet
 
     def self.http_get(path, params = {})
       
-      raise 'Empty account in config' if Browet::Config.account.empty?
-      raise 'Empty key in config' if Browet::Config.key.empty?
+      raise Browet::ConfigError, 'Empty account in config' if Browet::Config.account.empty?
+      raise Browet::ConfigError, 'Empty key in config' if Browet::Config.key.empty?
 
       uri = URI("#{Browet::Config.api_url}/#{path}")
       uri.query = URI.encode_www_form(params.merge({token: Browet::Config.key}))
@@ -14,7 +14,7 @@ module Browet
       res = Net::HTTP.get_response(uri)
       
       # res.is_a?(Net::HTTPSuccess) ? ActiveSupport::JSON.decode(res.body) : nil
-      raise "Error #{res.code}" unless res.is_a?(Net::HTTPSuccess)
+      raise Browet::HttpError, res.code unless res.is_a?(Net::HTTPSuccess)
       JSON.parse(res.body)
     end
 
