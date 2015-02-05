@@ -1,8 +1,8 @@
 require 'rails/generators'
-require "rails/generators/active_record"
+require "rails/generators/migration"
 
 module Browet
-  class InstallGenerator < ActiveRecord::Generators::Base
+  class InstallGenerator < Rails::Generators::Migration
     desc "Installs Browet plugin"
 
     source_root File.expand_path('../../../browet', __FILE__)
