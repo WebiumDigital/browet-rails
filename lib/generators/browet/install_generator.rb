@@ -1,5 +1,5 @@
 require 'rails/generators'
-require "rails/generators/active_record"
+require 'rails/generators/migration'
 
 module Browet
   class InstallGenerator < Rails::Generators::Base
