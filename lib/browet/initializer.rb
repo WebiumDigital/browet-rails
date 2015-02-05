@@ -10,4 +10,7 @@ Browet.init do |config|
   # Browet API key
   config.key = ''
 
+  # Cache life time
+  config.ttl = 28800
+
 end

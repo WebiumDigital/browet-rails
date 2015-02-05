@@ -17,5 +17,8 @@ module Browet
     def key
       @key ||= ''
     end
+    def ttl
+      @key ||= 28800
+    end
   end
 end
