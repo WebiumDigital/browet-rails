@@ -4,7 +4,8 @@ class CreateBrowetCache < ActiveRecord::Migration
       t.string   :path, :null => false
       t.string  :params, :null => false
       t.text   :json, :null => false
-      t.datetime :expire_at, :null => false
+
+      t.timestamps
     end
     add_index :browet_cahce, [:path, :params], :unique => true
   end

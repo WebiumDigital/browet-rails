@@ -1,0 +1,4 @@
+module EntityHelpers
+
+
+end
