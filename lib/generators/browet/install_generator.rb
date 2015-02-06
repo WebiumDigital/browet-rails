@@ -1,7 +1,7 @@
 require 'rails/generators'
-require "rails/generators/migration"
+require 'rails/generators/migration'
 
-module Browet
+class Browet
   class InstallGenerator < Rails::Generators::Migration
     desc "Installs Browet plugin"
 
