@@ -1,13 +1,12 @@
 module EntityHelpers
 
   def product_init
-    config_init
-    stub_get_request 'products/1', json_string('product1')
-    stub_get_request 'products/2', json_string('product2')
-    stub_get_request 'products/3', json_string('product3')
-    stub_get_request 'products', json_string('products')
-    stub_get_request 'products/page/2/2', json_string('products_paged')
-    stub_get_request 'products/search', json_string('products_find'), {title: 'product title 1'}
+    @stub_product1 = stub_get_request 'products/1', json_string('product1')
+    @stub_product2 = stub_get_request 'products/2', json_string('product2')
+    @stub_product3 = stub_get_request 'products/3', json_string('product3')
+    @stub_products = stub_get_request 'products', json_string('products')
+    @stub_product_paged = stub_get_request 'products/page/2/2', json_string('products_paged')
+    @stub_product_fined = stub_get_request 'products/search', json_string('products_find'), {title: 'product title 1'}
   end
 
   def should_be_product_1(product)

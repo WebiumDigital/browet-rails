@@ -4,7 +4,8 @@ RSpec.describe Browet::Product do
   include EntityHelpers
 
   context "when correct config" do
-    before(:context) do
+    before(:example) do
+      config_init
       product_init
     end
 

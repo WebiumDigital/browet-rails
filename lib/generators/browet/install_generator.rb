@@ -3,7 +3,7 @@ require "rails/generators/active_record"
 
 module Browet
   class InstallGenerator < ActiveRecord::Generators::Base
-    argument :name, type: :string, default: 'any_name'
+    argument :name, type: :string, default: 'any_name'  # any name to prevent parameter request
 
     desc "Installs Browet plugin"
 

@@ -1,6 +1,6 @@
 class CreateBrowetCache < ActiveRecord::Migration
   def change
-    create_table :browet_cahce do |t|
+    create_table :browet_cache do |t|
       t.string   :path, :null => false
       t.string  :params, :null => false
       t.text   :json, :null => false

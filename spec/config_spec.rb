@@ -18,7 +18,7 @@ RSpec.describe Browet::Config do
   end
 
   context "when correct config" do
-    before(:context) do
+    before(:example) do
       config_init
     end
 
@@ -27,7 +27,7 @@ RSpec.describe Browet::Config do
     end
 
     context "when invalid account" do
-      before(:context) do
+      before(:example) do
         init_invalid_account
       end
 
@@ -37,7 +37,7 @@ RSpec.describe Browet::Config do
     end
 
     context "when server timeout" do
-      before(:context) do
+      before(:example) do
         init_server_timeout
       end
 

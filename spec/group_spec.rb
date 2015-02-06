@@ -4,7 +4,7 @@ RSpec.describe Browet::Group do
   include EntityHelpers
 
   context "when correct config" do
-    before(:context) do
+    before(:example) do
       group_init
     end
 

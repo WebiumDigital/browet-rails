@@ -2,11 +2,11 @@ module EntityHelpers
 
   def category_init
     config_init
-    stub_get_request 'categories/1', json_string('category1')
-    stub_get_request 'categories/2', json_string('category2')
-    stub_get_request 'categories/3', json_string('category3')
-    stub_get_request 'categories/1/products', json_string('products')
-    stub_get_request 'categories/1/products/page/2/2', json_string('products_paged')
+    @stub_category1 = stub_get_request 'categories/1', json_string('category1')
+    @stub_category2 = stub_get_request 'categories/2', json_string('category2')
+    @stub_category3 = stub_get_request 'categories/3', json_string('category3')
+    @stub_category_products = stub_get_request 'categories/1/products', json_string('products')
+    @stub_category_products_paged = stub_get_request 'categories/1/products/page/2/2', json_string('products_paged')
   end
 
   def should_be_category_1(category)

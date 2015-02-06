@@ -2,11 +2,11 @@ module EntityHelpers
 
   def group_init
     config_init
-    stub_get_request 'categories_groups', json_string('groups')
-    stub_get_request 'categories_groups/1', json_string('group1')
-    stub_get_request 'categories_groups/2', json_string('group2')
-    stub_get_request 'categories_groups/1/products', json_string('products')
-    stub_get_request 'categories_groups/1/products/page/2/2', json_string('products_paged')
+    @stub_groups = stub_get_request 'categories_groups', json_string('groups')
+    @stub_group1 = stub_get_request 'categories_groups/1', json_string('group1')
+    @stub_group2 = stub_get_request 'categories_groups/2', json_string('group2')
+    @stub_group_products = stub_get_request 'categories_groups/1/products', json_string('products')
+    @stub_group_produxts_paged = stub_get_request 'categories_groups/1/products/page/2/2', json_string('products_paged')
   end
 
   def should_be_group_1(group)

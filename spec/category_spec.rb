@@ -4,7 +4,7 @@ RSpec.describe Browet::Category do
   include EntityHelpers
 
   context "when correct config" do
-    before(:context) do
+    before(:example) do
       category_init
     end
 

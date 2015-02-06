@@ -1,7 +1,7 @@
 module Browet
   module Config
     extend self
-    attr_accessor :version, :account, :key, :ttl
+    attr_writer :version, :account, :key, :ttl, :enable_cache
 
     def api_url
       "http://#{account}.browet.com/api/#{version}"
@@ -18,7 +18,10 @@ module Browet
       @key ||= ''
     end
     def ttl
-      @key ||= 28800
+      @ttl ||= 8
+    end
+    def enable_cache?
+      @enable_cache ||= false
     end
   end
 end
