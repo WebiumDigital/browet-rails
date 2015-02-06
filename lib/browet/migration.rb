@@ -7,6 +7,6 @@ class CreateBrowetCache < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :browet_cahce, [:path, :params], :unique => true
+    add_index :browet_cache, [:path, :params], :unique => true
   end
 end
