@@ -20,15 +20,18 @@ module Browet
       raise Browet::ConfigError, 'Empty key in config' if Browet::Config.key.empty?
 
       unless Browet::Config.enable_cache?
-        JSON.parse(get_reply(path, params))
+        
+        # request servers
+        JSON.parse(get_server_reply(path, params))
+
       else
-        # check for cache
+        
+        # check for cache record
         cached = Browet::Cache.get(path, params)
 
         if cached.nil? or (cached.updated_at < expired_time)
-          
           begin
-            json = get_reply(path, params)
+            json = get_server_reply(path, params)
             if cached.nil?
               cached = Browet::Cache.create!(path: path, params: params, json: json)
             else
@@ -39,13 +42,14 @@ module Browet
           end
         end
         JSON.parse(cached.json)
+
       end
 
     end
 
     protected
 
-      def self.get_reply(path, params)
+      def self.get_server_reply(path, params)
           uri = URI("#{Browet::Config.api_url}/#{path}")
           uri.query = URI.encode_www_form(params.merge({token: Browet::Config.key}))
           res = Net::HTTP.get_response(uri)
@@ -54,7 +58,7 @@ module Browet
       end
 
       def self.expired_time
-        #get DB time
+        # get DB time
         sql = "SELECT CURRENT_TIMESTAMP"
         db_time = Browet::Cache.connection.select_value(sql).to_time
         db_time - Browet::Config.ttl*3600
