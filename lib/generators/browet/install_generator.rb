@@ -3,6 +3,8 @@ require "rails/generators/active_record"
 
 module Browet
   class InstallGenerator < ActiveRecord::Generators::Base
+    argument :name, type: :string, default: 'any_name'
+
     desc "Installs Browet plugin"
 
     source_root File.expand_path('../../../browet', __FILE__)
