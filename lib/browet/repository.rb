@@ -7,9 +7,12 @@ module Browet
     self.table_name = 'browet_cache'
     serialize :params, JSON
 
-    def self.get(path, params = {})
-      where('path=?', path).where('params=?', params.to_json).first
+    def self.get(path, params = {}, useLocalizedToken)
+      where('path=?', path).where('params=? AND locale=?', 
+        params.to_json, Browet::Config.get_tokenized_locale).first
     end
+
+
   end
 
   class Repository
@@ -17,7 +20,7 @@ module Browet
     def self.http_get(path, params = {})
 
       raise Browet::ConfigError, 'Empty account in config' if Browet::Config.account.empty?
-      raise Browet::ConfigError, 'Empty key in config' if Browet::Config.key.empty?
+      raise Browet::ConfigError, 'Empty default_token in config' if Browet::Config.default_token.empty?
 
       unless Browet::Config.enable_cache?
         
@@ -33,7 +36,8 @@ module Browet
           begin
             json = get_server_reply(path, params)
             if cached.nil?
-              cached = Browet::Cache.create!(path: path, params: params, json: json)
+              cached = Browet::Cache.create!(path: path, params: params, 
+                json: json, locale: Browet::Config.get_tokenized_locale)
             else
               cached.update!(updated_at: Time.now)
             end
@@ -51,7 +55,11 @@ module Browet
 
       def self.get_server_reply(path, params)
           uri = URI("#{Browet::Config.api_url}/#{path}")
-          uri.query = URI.encode_www_form(params.merge({token: Browet::Config.key}))
+          locale = Browet::Config.get_tokenized_locale 
+          token = locale.blank? ?
+            Browet::Config.default_token :
+            Browet::Config.localized_tokens[locale]
+          uri.query = URI.encode_www_form(params.merge({token: token}))
           res = Net::HTTP.get_response(uri)
           raise Browet::HttpError, res.code unless res.is_a?(Net::HTTPSuccess)
           res.body

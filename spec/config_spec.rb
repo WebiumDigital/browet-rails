@@ -6,13 +6,13 @@ RSpec.describe Browet::Config do
   context "when invalid config" do
     it "raise empty account error" do
       Browet::Config.account = ''
-      Browet::Config.key = ''
+      Browet::Config.default_token = ''
       expect { Browet::Group.list }.to raise_error(Browet::ConfigError)
     end
 
-    it "raise empty key error" do
+    it "raise empty default_token error" do
       Browet::Config.account = 'account'
-      Browet::Config.key = ''
+      Browet::Config.default_token = ''
       expect { Browet::Group.list }.to raise_error(Browet::ConfigError)
     end
   end

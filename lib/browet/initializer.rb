@@ -7,8 +7,12 @@ Browet.init do |config|
   # Browet API account
   config.account = ''
 
-  # Browet API key
-  config.key = ''
+  # Browet API tokens
+  config.default_token = ''
+  config.localized_tokens = {
+    # :ru => 'token for ru locale',
+    # :en => 'token for en locale'
+  }
 
   # Cache life time (hours)
   config.ttl = 8

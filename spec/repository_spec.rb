@@ -46,7 +46,7 @@ RSpec.describe Browet::Repository do
           # stub server request timeout 
           WebMock.reset!
           WebMock.stub_request(:any, Browet::Config.api_url + "/products/1").
-            with(:query => {"token" => Browet::Config.key}).to_timeout
+            with(:query => {"token" => Browet::Config.default_token}).to_timeout
 
           # timeout on request
           expect { Browet::Product.get(1) }.to raise_error(Timeout::Error)
@@ -115,7 +115,7 @@ RSpec.describe Browet::Repository do
             # stub server request timeout 
             WebMock.reset!
             WebMock.stub_request(:any, Browet::Config.api_url + "/products/1").
-              with(:query => {"token" => Browet::Config.key}).to_timeout
+              with(:query => {"token" => Browet::Config.default_token}).to_timeout
   
             # product is returned
             product = Browet::Product.get(1)

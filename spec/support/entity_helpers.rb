@@ -4,7 +4,7 @@ module EntityHelpers
   # stub http request
   def stub_get_request(path, success_body = "", query_params = {}, success_headers = {})
     WebMock.stub_request(:get, Browet::Config.api_url + "/#{path}").
-      with(:query => query_params.merge({"token" => Browet::Config.key})).
+      with(:query => query_params.merge({"token" => Browet::Config.default_token})).
       to_return(:status => 200, :body => success_body, :headers => success_headers)
   end
 
@@ -17,7 +17,7 @@ module EntityHelpers
   def config_init(enable_cache = false)
     WebMock.reset!
     Browet::Config.account = 'account'
-    Browet::Config.key = 'key'
+    Browet::Config.default_token = 'key'
     Browet::Config.enable_cache = enable_cache
     Browet::Cache.establish_connection(
       :adapter  => "postgresql",
@@ -31,14 +31,14 @@ module EntityHelpers
   # for invalid accounts tests
   def init_invalid_account
     WebMock.stub_request(:get, Browet::Config.api_url + "/categories_groups").
-      with(:query => {"token" => Browet::Config.key}).
+      with(:query => {"token" => Browet::Config.default_token}).
       to_return(:status => 401, :body => "", :headers => {})
   end
 
   # for server timeout tests
   def init_server_timeout
     WebMock.stub_request(:any, Browet::Config.api_url + "/products").
-      with(:query => {"token" => Browet::Config.key}).
+      with(:query => {"token" => Browet::Config.default_token}).
       to_timeout
   end
 
