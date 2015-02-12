@@ -15,7 +15,7 @@ RSpec.describe Browet::Repository do
       end
 
 
-      it "shoud make http request and refresh cache" do
+      it "should make http request and refresh cache" do
         # cache is empty
         expect(Browet::Cache.all.length).to eq(0)
         
@@ -39,7 +39,7 @@ RSpec.describe Browet::Repository do
 
 
       context "when server reply timeout" do
-        it "shoud make http request and return result from cache" do
+        it "should make http request and return result from cache" do
           # cache is empty
           expect(Browet::Cache.all.length).to eq(0)
           
@@ -59,7 +59,7 @@ RSpec.describe Browet::Repository do
       context "when nondirty cahce" do
         before(:example) do
           Browet::Cache.delete_all
-          Browet::Cache.create(path: 'products/1', params: {}, json:json_string('product1'), updated_at: Time.now - 3600) # fill in cache
+          Browet::Cache.create(path: 'products/1', locale: '', params: {}, json:json_string('product1'), updated_at: Time.now - 3600) # fill in cache
         end
 
         it "should not make http request and return result from cache" do
@@ -79,7 +79,7 @@ RSpec.describe Browet::Repository do
         before(:example) do
           Browet::Cache.delete_all
           # fill in cache with dirty data
-          Browet::Cache.create(path: 'products/1', params: {}, json:json_string('product1'), updated_at: Time.now - 10*3600)
+          Browet::Cache.create(path: 'products/1', locale: '', params: {}, json:json_string('product1'), updated_at: Time.now - 10*3600)
         end
 
         context "when success server reply" do

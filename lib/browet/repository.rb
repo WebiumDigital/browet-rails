@@ -7,7 +7,7 @@ module Browet
     self.table_name = 'browet_cache'
     serialize :params, JSON
 
-    def self.get(path, params = {}, useLocalizedToken)
+    def self.get(path, params = {})
       where('path=?', path).where('params=? AND locale=?', 
         params.to_json, Browet::Config.get_tokenized_locale).first
     end

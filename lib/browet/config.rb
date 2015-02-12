@@ -29,7 +29,7 @@ module Browet
     end
 
     def get_tokenized_locale
-      Browet::Config.localized_tokens[I18n.locale].blank? ? nil : I18n.locale
+      Browet::Config.localized_tokens[I18n.locale].blank? ? '' : I18n.locale
     end
   end
 end
