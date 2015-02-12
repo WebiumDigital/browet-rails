@@ -6,7 +6,7 @@ module Browet
   class Group < Browet::Entity
 
     @repository = Browet::GroupRepository
-    @attributes = [:id, :title, :name]
+    @attributes = [:id, :title, :name, :slug]
     @list_root = :categories_groups
 
     attr_accessor :categories
