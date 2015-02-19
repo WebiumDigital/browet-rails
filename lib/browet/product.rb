@@ -5,15 +5,23 @@ module Browet
   class Product < Browet::Entity
 
     @repository = Browet::ProductRepository
-    @attributes = [:id, :description, :title, :guid, :mpn, :slug, 
-      :availability, :gtin, :currency]
     @list_root = :products
 
+    # availabel attributes
+    @attributes = [:id, :description, :title, :guid, :mpn, :slug, 
+      :availability, :gtin, :currency]
+
+    ##
+    # Returns paged set (Browet::ResultSet) of products
+    #
     def self.list(page = nil, limit = nil)
       products = repository.list(page, limit)
       form_products(products)
     end
 
+    ##
+    # Returns set (Browet::ResultSet) of products found by given params
+    #
     def self.find(params)
       products = repository.find(params)
       form_products(products)

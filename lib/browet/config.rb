@@ -1,4 +1,8 @@
 module Browet
+  
+  ## 
+  # Gem config with defaults
+  #
   module Config
     extend self
     attr_writer :version, :account, :key, :ttl, :enable_cache,

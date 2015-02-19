@@ -6,10 +6,11 @@ module Browet
   class Group < Browet::Entity
 
     @repository = Browet::GroupRepository
-    @attributes = [:id, :title, :name, :slug]
     @list_root = :categories_groups
 
-    attr_accessor :categories
+    # availabel attributes
+    @attributes = [:id, :title, :name, :slug]
+    attr_reader :categories
 
     def initialize(hash)
       super

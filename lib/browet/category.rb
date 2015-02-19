@@ -5,10 +5,11 @@ module Browet
   class Category < Browet::Entity
     
     @repository = Browet::CategoryRepository
-    @attributes = [:id, :title, :parent_id, :group_id, :slug]
     @list_root = :categories
 
-    attr_accessor :subcategories
+    # availabel attributes
+    @attributes = [:id, :title, :parent_id, :group_id, :slug]
+    attr_reader :subcategories
 
     def initialize(hash)
       super

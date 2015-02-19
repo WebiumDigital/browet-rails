@@ -1,11 +1,20 @@
 require 'browet/repository'
 
 module Browet
+
+  ##
+  # Base class for entities
+  #
   class Entity
     
-    class << self; attr_accessor :attributes, :repository, :list_root end
+    # service attributes used to define some properties and behavior of children
+    class << self; attr_reader :attributes, :repository, :list_root end
 
+    ##
+    # Constructs object by hash
+    #
     def initialize(hash)
+      # set object attribute vaues and create getters
       self.class.attributes.each do |attr|
         attr = attr.to_s
         self.instance_variable_set("@#{attr}", hash[attr])
@@ -13,6 +22,9 @@ module Browet
       end
     end
     
+    ##
+    # Returns Browet::ResultSet of all objects
+    #
     def self.list
       entities = repository.list
       unless entities.nil?
@@ -24,23 +36,33 @@ module Browet
       end
     end
 
+    ##
+    # Returns object by id
+    #
     def self.get(id)
       entity = repository.get(id)
       self.new(entity) unless entity.nil?
     end
 
+    ##
+    # Returns products property (Browet::ResultSet) of container object
+    # 
     def products(page = nil, limit = nil)
-      products = self.class.repository.products(id, page, limit)
-      self.class.form_products(products)
+      product_hash = self.class.repository.products(id, page, limit)
+      self.class.form_products(product_hash)
     end
 
     protected
 
-      def self.form_products(products)
-        unless products.nil?
+      ##
+      # Creates set (Browet::ResultSet) of products
+      #
+      def self.form_products(product_hash)
+        unless product_hash.nil?
           Browet::ResultSet.new(
-            products['products'].map{ |x| Browet::Product.new(x) },
-            products['meta']['total_count'], products['meta']['pages'])
+            product_hash['products'].map{ |x| Browet::Product.new(x) },
+            product_hash['meta']['total_count'], 
+            product_hash['meta']['pages'])
         else
           Browet::ResultSet.new
         end
