@@ -20,21 +20,20 @@ RSpec.describe Browet::Repository do
         expect(Browet::Cache.all.length).to eq(0)
         
         # product is returned
-        products = Browet::Product.find({title: 'product title 1'})
-        should_be_find_set  products
+        products = Browet::Product.list
+        should_be_unpaged_set  products
 
-        #server reqwest was made
-        expect(@stub_product_fined).to have_been_requested
+        # server request was made
+        expect(@stub_products).to have_been_requested
 
         # cache is not empty
         expect(Browet::Cache.all.length).to eq(1)
 
         # valid record in the cache
-        cache_record = Browet::Cache.get('products/search', {title: 'product title 1'})
+        cache_record = Browet::Cache.get('products')
         expect(cache_record).to be_a(Browet::Cache)
-        expect(cache_record.path).to eq('products/search')
-        expect(cache_record.params).to eq({"title"=>'product title 1'})
-        expect(cache_record.json).to eq(json_string('products_find'))
+        expect(cache_record.path).to eq('products')
+        expect(cache_record.json).to eq(json_string('products'))
       end
 
 
