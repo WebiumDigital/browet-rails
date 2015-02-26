@@ -20,4 +20,7 @@ Browet.init do |config|
   # Disable cache
   config.enable_cache = true
 
+  # Addressing type (:slug or :id)
+  config.identity = :slug
+
 end
