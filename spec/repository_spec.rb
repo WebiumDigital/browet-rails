@@ -45,11 +45,11 @@ RSpec.describe Browet::Repository do
           
           # stub server request timeout 
           WebMock.reset!
-          WebMock.stub_request(:any, Browet::Config.api_url + "/products/1").
+          WebMock.stub_request(:any, Browet::Config.api_url + "/products/product1").
             with(:query => {"token" => Browet::Config.default_token}).to_timeout
 
           # timeout on request
-          expect { Browet::Product.get(1) }.to raise_error(Timeout::Error)
+          expect { Browet::Product.get_by_slug('product1') }.to raise_error(Timeout::Error)
         end
       end
     end
@@ -59,7 +59,7 @@ RSpec.describe Browet::Repository do
       context "when nondirty cahce" do
         before(:example) do
           Browet::Cache.delete_all
-          Browet::Cache.create(path: 'products/1', locale: '', params: {}, json:json_string('product1'), updated_at: Time.now - 3600) # fill in cache
+          Browet::Cache.create(path: 'products/product1', locale: '', params: {}, json:json_string('product1'), updated_at: Time.now - 3600) # fill in cache
         end
 
         it "should not make http request and return result from cache" do
@@ -67,7 +67,7 @@ RSpec.describe Browet::Repository do
           expect(Browet::Cache.all.length).to eq(1)
 
           # product is returned
-          product = Browet::Product.get(1)
+          product = Browet::Product.get_by_slug('product1')
           should_be_product_1 product
           
           # server was not requested
@@ -79,7 +79,7 @@ RSpec.describe Browet::Repository do
         before(:example) do
           Browet::Cache.delete_all
           # fill in cache with dirty data
-          Browet::Cache.create(path: 'products/1', locale: '', params: {}, json:json_string('product1'), updated_at: Time.now - 10*3600)
+          Browet::Cache.create(path: 'products/product1', locale: '', params: {}, json:json_string('product1'), updated_at: Time.now - 10*3600)
         end
 
         context "when success server reply" do
@@ -91,7 +91,7 @@ RSpec.describe Browet::Repository do
             expect(Browet::Cache.all.length).to eq(1)
 
             # product is returned
-            product = Browet::Product.get(1)
+            product = Browet::Product.get_by_slug('product1')
             should_be_product_1 product
 
             # server was requested
@@ -99,7 +99,7 @@ RSpec.describe Browet::Repository do
 
             # cache was updated
             expect(Browet::Cache.all.length).to eq(1)
-            cached = Browet::Cache.get('products/1')
+            cached = Browet::Cache.get('products/product1')
             expect(cached.updated_at).to be >= now
           end
         end
@@ -110,20 +110,20 @@ RSpec.describe Browet::Repository do
             expect(Browet::Cache.all.length).to eq(1)
             
             # current cache update time
-            cache_updated_at = Browet::Cache.get('products/1').updated_at
+            cache_updated_at = Browet::Cache.get('products/product1').updated_at
 
             # stub server request timeout 
             WebMock.reset!
-            WebMock.stub_request(:any, Browet::Config.api_url + "/products/1").
+            WebMock.stub_request(:any, Browet::Config.api_url + "/products/product1").
               with(:query => {"token" => Browet::Config.default_token}).to_timeout
   
             # product is returned
-            product = Browet::Product.get(1)
+            product = Browet::Product.get_by_slug('product1')
             should_be_product_1 product
 
             # cache was not updated
             expect(Browet::Cache.all.length).to eq(1)
-            cached = Browet::Cache.get('products/1')
+            cached = Browet::Cache.get('products/product1')
             expect(cached.updated_at).to eq(cache_updated_at)
           end
         end

@@ -16,19 +16,19 @@ RSpec.describe Browet::Group do
     end
 
     it "responds to get 1" do
-      should_be_group_1 Browet::Group.get(1)
+      should_be_group_1 Browet::Group.get_by_slug('group1')
     end
 
     it "responds to get 2" do
-      should_be_group_2 Browet::Group.get(2)
+      should_be_group_2 Browet::Group.get_by_slug('group2')
     end
 
     it "has group 1 containing products" do
-      should_be_unpaged_set Browet::Group.get(1).products
+      should_be_unpaged_set Browet::Group.get_by_slug('group1').products
     end
 
     it "has group 1 containing paged products" do
-      should_be_paged_set Browet::Group.get(1).products(2, 2)
+      should_be_paged_set Browet::Group.get_by_slug('group1').products(2, 2)
     end
 
   end

@@ -9,17 +9,17 @@ module Browet
     end
 
     ##
-    # Retuns hash for group with id
+    # Retuns hash for group with slug
     #
-    def self.get(id)
-      http_get("categories_groups/#{id}")
+    def self.get_by_slug(slug)
+      http_get("categories_groups/#{slug}")
     end
 
     ##
-    # Retuns hash of product paged set for group with id
+    # Retuns hash of product paged set for group with slug
     #
-    def self.products(id, page, limit)
-      http_get("categories_groups/#{id}/products#{page_suffix(page, limit)}")
+    def self.products(slug, page, limit)
+      http_get("categories_groups/#{slug}/products#{page_suffix(page, limit)}")
     end
 
   end

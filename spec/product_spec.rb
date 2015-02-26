@@ -10,15 +10,15 @@ RSpec.describe Browet::Product do
     end
 
     it "responds to get 1" do
-      should_be_product_1 Browet::Product.get(1)
+      should_be_product_1 Browet::Product.get_by_slug('product1')
     end
 
     it "responds to get 2" do
-      should_be_product_2 Browet::Product.get(2)
+      should_be_product_2 Browet::Product.get_by_slug('product2')
     end
 
     it "responds to get 3" do
-      should_be_product_3 Browet::Product.get(3)
+      should_be_product_3 Browet::Product.get_by_slug('product3')
     end
 
     it "responds to list" do

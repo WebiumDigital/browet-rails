@@ -5,7 +5,7 @@
   "group_id": 2,
   "visible" : null,
   "position" : 1,
-  "slug": "category slug 2",
+  "slug": "category2",
   "group" : {
     "id": 2,
     "name": "group name 2",

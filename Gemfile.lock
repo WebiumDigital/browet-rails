@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    browet (0.0.1)
+    browet (0.0.2)
       json
       rails (~> 4.2.0)
 
@@ -50,7 +50,7 @@ GEM
       safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
     erubis (2.7.0)
-    globalid (0.3.1)
+    globalid (0.3.3)
       activesupport (>= 4.1.0)
     hike (1.2.3)
     i18n (0.7.0)

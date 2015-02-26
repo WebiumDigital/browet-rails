@@ -9,15 +9,15 @@ RSpec.describe Browet::Category do
     end
 
     it "responds to get 1" do
-      should_be_category_1 Browet::Category.get(1)
+      should_be_category_1 Browet::Category.get_by_slug('category1')
     end
 
     it "responds to get 2" do
-      should_be_category_2 Browet::Category.get(2)
+      should_be_category_2 Browet::Category.get_by_slug('category2')
     end
 
     it "responds to get 3" do
-      should_be_category_3 Browet::Category.get(3)
+      should_be_category_3 Browet::Category.get_by_slug('category3')
     end
 
     it "not respond to list" do
@@ -25,11 +25,11 @@ RSpec.describe Browet::Category do
     end
 
     it "has category 1 containing products" do
-      should_be_unpaged_set Browet::Category.get(1).products
+      should_be_unpaged_set Browet::Category.get_by_slug('category1').products
     end
 
     it "has category 1 containing paged products" do
-      should_be_paged_set Browet::Category.get(1).products(2, 2)
+      should_be_paged_set Browet::Category.get_by_slug('category1').products(2, 2)
     end
   end
 

@@ -37,10 +37,10 @@ module Browet
     end
 
     ##
-    # Returns object by id
+    # Returns object by slug
     #
-    def self.get(id)
-      entity = repository.get(id)
+    def self.get_by_slug(slug)
+      entity = repository.get_by_slug(slug)
       self.new(entity) unless entity.nil?
     end
 
@@ -48,7 +48,7 @@ module Browet
     # Returns products property (Browet::ResultSet) of container object
     # 
     def products(page = nil, limit = nil)
-      product_hash = self.class.repository.products(id, page, limit)
+      product_hash = self.class.repository.products(slug, page, limit)
       self.class.form_products(product_hash)
     end
 
