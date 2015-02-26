@@ -19,7 +19,7 @@ RSpec.describe Browet::Repository do
         # cache is empty
         expect(Browet::Cache.all.length).to eq(0)
         
-        # product is returned
+        # products is returned
         products = Browet::Product.list
         should_be_unpaged_set  products
 
@@ -36,9 +36,23 @@ RSpec.describe Browet::Repository do
         expect(cache_record.json).to eq(json_string('products'))
       end
 
+      it "should not cache product search request" do
+        # cache is empty
+        expect(Browet::Cache.all.length).to eq(0)
+        
+        # product is returned
+        products = Browet::Product.find({title: 'product title 1'})
+        should_be_find_set  products
+
+        # server request was made
+        expect(@stub_product_fined).to have_been_requested
+
+        # cache is empty
+        expect(Browet::Cache.all.length).to eq(0)
+      end
 
       context "when server reply timeout" do
-        it "should make http request and return result from cache" do
+        it "should make http request and raise error" do
           # cache is empty
           expect(Browet::Cache.all.length).to eq(0)
           
@@ -51,6 +65,7 @@ RSpec.describe Browet::Repository do
           expect { Browet::Product.get_by_slug('product1') }.to raise_error(Timeout::Error)
         end
       end
+
     end
 
     context "when nonempty cache" do

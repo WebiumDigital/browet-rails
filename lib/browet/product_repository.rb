@@ -19,7 +19,7 @@ module Browet
     # Retuns hash of found products
     #
     def self.find(search_params = {})
-      http_get("products/search", search_params)
+      http_get("products/search", search_params, true)
     end
 
   end

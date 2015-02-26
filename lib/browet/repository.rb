@@ -27,13 +27,13 @@ module Browet
     ##
     # Returns hash recived after http request or from cahce
     #
-    def self.http_get(path, params = {})
+    def self.http_get(path, params = {}, disable_cahce = false)
 
       # check config
       raise Browet::ConfigError, 'Empty account in config' if Browet::Config.account.empty?
       raise Browet::ConfigError, 'Empty default_token in config' if Browet::Config.default_token.empty?
 
-      unless Browet::Config.enable_cache?
+      if !Browet::Config.enable_cache? or disable_cahce
 
         # request servers if cache is disabled
         JSON.parse(get_server_reply(path, params))
