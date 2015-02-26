@@ -103,7 +103,7 @@ module Browet
         # get DB time
         sql = "SELECT CURRENT_TIMESTAMP"
         db_time = Browet::Cache.connection.select_value(sql).to_time
-        db_time - Browet::Config.ttl*3600
+        db_time - Browet::Config.ttl*Browet::Config::TTL_MULTIPLICATOR
       end
 
       ##

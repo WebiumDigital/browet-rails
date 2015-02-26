@@ -14,8 +14,8 @@ Browet.init do |config|
     # :en => 'token for en locale'
   }
 
-  # Cache life time (hours)
-  config.ttl = 8
+  # Cache life time (minutes)
+  config.ttl = 10
 
   # Disable cache
   config.enable_cache = true

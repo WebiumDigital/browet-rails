@@ -8,6 +8,9 @@ module Browet
     attr_writer :version, :account, :key, :ttl, :enable_cache,
       :localized_tokens, :default_token
 
+    # number of seconds in the ttl unit
+    TTL_MULTIPLICATOR = 60
+
     def api_url
       "http://#{account}.browet.com/api/#{version}"
     end
@@ -26,7 +29,7 @@ module Browet
       @default_token ||= ''
     end
     def ttl
-      @ttl ||= 8
+      @ttl ||= 10
     end
     def enable_cache?
       @enable_cache ||= false
@@ -35,5 +38,6 @@ module Browet
     def get_tokenized_locale
       Browet::Config.localized_tokens[I18n.locale].blank? ? '' : I18n.locale
     end
+
   end
 end

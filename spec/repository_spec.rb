@@ -72,8 +72,12 @@ RSpec.describe Browet::Repository do
 
       context "when nondirty cahce" do
         before(:example) do
+          # fill in cache with nondirty data
           Browet::Cache.delete_all
-          Browet::Cache.create(path: 'products/product1', locale: '', params: {}, json:json_string('product1'), updated_at: Time.now - 3600) # fill in cache
+          Browet::Config.ttl = 10
+          timestamp = Time.now - (Browet::Config.ttl - 1)*Browet::Config::TTL_MULTIPLICATOR
+          Browet::Cache.create(path: 'products/product1', locale: '', params: {}, 
+            json:json_string('product1'), updated_at: timestamp)
         end
 
         it "should not make http request and return result from cache" do
@@ -91,9 +95,12 @@ RSpec.describe Browet::Repository do
 
       context "when dirty cahce" do
         before(:example) do
-          Browet::Cache.delete_all
           # fill in cache with dirty data
-          Browet::Cache.create(path: 'products/product1', locale: '', params: {}, json:json_string('product1'), updated_at: Time.now - 10*3600)
+          Browet::Cache.delete_all
+          Browet::Config.ttl = 10
+          timestamp = Time.now - (Browet::Config.ttl + 1)*Browet::Config::TTL_MULTIPLICATOR
+          Browet::Cache.create(path: 'products/product1', locale: '', params: {}, 
+            json:json_string('product1'), updated_at: timestamp)
         end
 
         context "when success server reply" do
