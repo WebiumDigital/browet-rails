@@ -1,8 +1,19 @@
 require 'json'
 require 'active_record'
+require 'active_job'
 require "browet/cache"
 
 module Browet
+
+  ##
+  # Class fore backgroud cache update job
+  #
+  class BackgroundCacheUpdater < ActiveJob::Base
+    def perform(path, params)
+      json = Repository::get_server_reply(path, params)
+      cached = Cache.set(path, params, json)
+    end
+  end
 
   ##
   # Base class fore object repositories
@@ -28,16 +39,20 @@ module Browet
         # check for nondirty cached record
         cached = Browet::Cache.get(path, params)
 
-        if cached.nil?
+        if cached.nil?  # there is no nondirty record
           
-          begin
-            # send http request in case of empty or dirty cache
+          # try to get dirty record
+          cached = Browet::Cache.get(path, params, true)
+          
+          if cached.nil?  # there is no dirty record
+            # make request and update cahce
             json = get_server_reply(path, params)
-            cached = Browet::Cache.set(path, params, json)
-          rescue Timeout::Error => e
-            # try to get dirty record
-            cached = Browet::Cache.get(path, params, true)
-            raise e if cached.nil?
+            cached = Cache.set(path, params, json)
+          else
+            # make background cahce update
+            # json = get_server_reply(path, params)
+            # cached = Cache.set(path, params, json)
+            BackgroundCacheUpdater.perform_later(path, params)
           end
 
         end
@@ -61,22 +76,22 @@ module Browet
       raise "method self.get not implemented"
     end
 
-    protected
+    ##
+    # Returns http reply body
+    #
+    def self.get_server_reply(path, params)
+        uri = URI("#{Browet::Config.api_url}/#{path}")
+        locale = Browet::Config.get_tokenized_locale 
+        token = locale.blank? ?
+          Browet::Config.default_token :
+          Browet::Config.localized_tokens[locale]
+        uri.query = URI.encode_www_form(params.merge({token: token}))
+        res = Net::HTTP.get_response(uri)
+        raise Browet::HttpError, res.code unless res.is_a?(Net::HTTPSuccess)
+        res.body
+    end
 
-      ##
-      # Returns http reply body
-      #
-      def self.get_server_reply(path, params)
-          uri = URI("#{Browet::Config.api_url}/#{path}")
-          locale = Browet::Config.get_tokenized_locale 
-          token = locale.blank? ?
-            Browet::Config.default_token :
-            Browet::Config.localized_tokens[locale]
-          uri.query = URI.encode_www_form(params.merge({token: token}))
-          res = Net::HTTP.get_response(uri)
-          raise Browet::HttpError, res.code unless res.is_a?(Net::HTTPSuccess)
-          res.body
-      end
+    protected
 
       ##
       # Retuns path suffix for paged request
