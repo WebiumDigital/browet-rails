@@ -11,7 +11,7 @@ module Browet
     ##
     # Retuns hash for product with slug
     #
-    def self.get_by_slug(slug)
+    def self.get(slug)
       http_get("products/#{slug}")
     end
 

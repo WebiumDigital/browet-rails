@@ -39,8 +39,8 @@ module Browet
     ##
     # Returns object by slug
     #
-    def self.get_by_slug(slug)
-      entity = repository.get_by_slug(slug)
+    def self.get(slug)
+      entity = repository.get(slug)
       self.new(entity) unless entity.nil?
     end
 

@@ -49,7 +49,7 @@ RSpec.describe Browet::Repository do
             with(:query => {"token" => Browet::Config.default_token}).to_timeout
 
           # timeout on request
-          expect { Browet::Product.get_by_slug('product1') }.to raise_error(Timeout::Error)
+          expect { Browet::Product.get('product1') }.to raise_error(Timeout::Error)
         end
       end
     end
@@ -67,7 +67,7 @@ RSpec.describe Browet::Repository do
           expect(Browet::Cache.all.length).to eq(1)
 
           # product is returned
-          product = Browet::Product.get_by_slug('product1')
+          product = Browet::Product.get('product1')
           should_be_product_1 product
           
           # server was not requested
@@ -91,7 +91,7 @@ RSpec.describe Browet::Repository do
             expect(Browet::Cache.all.length).to eq(1)
 
             # product is returned
-            product = Browet::Product.get_by_slug('product1')
+            product = Browet::Product.get('product1')
             should_be_product_1 product
 
             # server was requested
@@ -118,7 +118,7 @@ RSpec.describe Browet::Repository do
               with(:query => {"token" => Browet::Config.default_token}).to_timeout
   
             # product is returned
-            product = Browet::Product.get_by_slug('product1')
+            product = Browet::Product.get('product1')
             should_be_product_1 product
 
             # cache was not updated
