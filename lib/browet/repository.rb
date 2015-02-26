@@ -33,9 +33,9 @@ module Browet
       raise Browet::ConfigError, 'Empty account in config' if Browet::Config.account.empty?
       raise Browet::ConfigError, 'Empty default_token in config' if Browet::Config.default_token.empty?
 
-      if !Browet::Config.enable_cache? or disable_cahce
+      if !Browet::Config.enable_cache? or disable_cahce or (Browet::Config.ttl == 0)
 
-        # request servers if cache is disabled
+        # request servers withowt cahce updating
         JSON.parse(get_server_reply(path, params))
 
       else
