@@ -131,7 +131,7 @@ RSpec.describe Browet::Repository do
             expect(Browet::Cache.all.length).to eq(1)
             
             # current cache update time
-            cache_updated_at = Browet::Cache.get('products/product1').updated_at
+            cache_updated_at = Browet::Cache.get('products/product1', {}, true).updated_at
 
             # stub server request timeout 
             WebMock.reset!
@@ -144,7 +144,7 @@ RSpec.describe Browet::Repository do
 
             # cache was not updated
             expect(Browet::Cache.all.length).to eq(1)
-            cached = Browet::Cache.get('products/product1')
+            cached = Browet::Cache.get('products/product1', {}, true)
             expect(cached.updated_at).to eq(cache_updated_at)
           end
         end

@@ -1,23 +1,8 @@
 require 'json'
 require 'active_record'
+require "browet/cache"
 
 module Browet
-
-  ##
-  # Cache for saving http requests and replies
-  #
-  class Cache < ::ActiveRecord::Base
-    self.table_name = 'browet_cache'
-    serialize :params, JSON
-
-    ##
-    # Returns cahced request
-    #
-    def self.get(path, params = {})
-      where('path=?', path).where('params=? AND locale=?', 
-        params.to_json, Browet::Config.get_tokenized_locale).first
-    end
-  end
 
   ##
   # Base class fore object repositories
@@ -40,21 +25,18 @@ module Browet
 
       else
         
-        # check for cached record
+        # check for nondirty cached record
         cached = Browet::Cache.get(path, params)
 
-        if cached.nil? or (cached.updated_at < expired_time)
+        if cached.nil?
           
-          # send http request in case of empty or dirty cache
           begin
+            # send http request in case of empty or dirty cache
             json = get_server_reply(path, params)
-            if cached.nil?
-              cached = Browet::Cache.create!(path: path, params: params, 
-                json: json, locale: Browet::Config.get_tokenized_locale)
-            else
-              cached.update!(updated_at: Time.now)
-            end
+            cached = Browet::Cache.set(path, params, json)
           rescue Timeout::Error => e
+            # try to get dirty record
+            cached = Browet::Cache.get(path, params, true)
             raise e if cached.nil?
           end
 
@@ -94,16 +76,6 @@ module Browet
           res = Net::HTTP.get_response(uri)
           raise Browet::HttpError, res.code unless res.is_a?(Net::HTTPSuccess)
           res.body
-      end
-
-      ##
-      # Caclulates cache expiration time
-      #
-      def self.expired_time
-        # get DB time
-        sql = "SELECT CURRENT_TIMESTAMP"
-        db_time = Browet::Cache.connection.select_value(sql).to_time
-        db_time - Browet::Config.ttl*Browet::Config::TTL_MULTIPLICATOR
       end
 
       ##
