@@ -9,7 +9,7 @@ module Browet
     end
 
     ##
-    # Retuns hash for category with slug
+    # Retuns hash for category with slug or id
     #
     def self.get(slug)
       http_get("categories/#{slug}")

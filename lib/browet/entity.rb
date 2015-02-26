@@ -37,7 +37,7 @@ module Browet
     end
 
     ##
-    # Returns object by slug
+    # Returns object by slug or id
     #
     def self.get(slug)
       entity = repository.get(slug)
