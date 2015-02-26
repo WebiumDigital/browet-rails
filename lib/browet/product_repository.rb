@@ -9,10 +9,10 @@ module Browet
     end
 
     ##
-    # Retuns hash for product with slug
+    # Retuns hash for product with slug or id
     #
-    def self.get_by_slug(slug)
-      http_get("products/#{slug}")
+    def self.get(id)
+      http_get("products/#{id}")
     end
 
     ##

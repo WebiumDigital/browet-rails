@@ -73,10 +73,10 @@ module Browet
     end
 
     ##
-    # Stubs get_by_slug method
+    # Stubs get method (by slug or id)
     #
-    def self.get_by_slug(slug)
-      raise "method self.get_by_slug not implemented"
+    def self.get(id)
+      raise "method self.get not implemented"
     end
 
     protected

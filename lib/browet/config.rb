@@ -6,7 +6,7 @@ module Browet
   module Config
     extend self
     attr_writer :version, :account, :key, :ttl, :enable_cache,
-      :localized_tokens, :default_token
+      :localized_tokens, :default_token, :identity
 
     # number of seconds in the ttl unit
     TTL_MULTIPLICATOR = 60
@@ -33,6 +33,14 @@ module Browet
     end
     def enable_cache?
       @enable_cache ||= false
+    end
+    def identity
+      if @identity.blank?
+        :slug
+      else
+        raise Browet::ConfigError('Inavlid identity parameter in config') unless [:slug, :id].include? @identity
+        @identity
+      end
     end
 
     def get_tokenized_locale
