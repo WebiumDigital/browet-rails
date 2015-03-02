@@ -30,7 +30,7 @@ RSpec.describe Browet::Product do
     end
 
     it "responds to find" do
-      should_be_find_set Browet::Product.find({title: 'product title 1'})
+      should_be_find_set Browet::Product.find('product title 1')
     end
   end
 

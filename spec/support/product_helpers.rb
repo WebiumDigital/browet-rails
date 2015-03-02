@@ -6,7 +6,7 @@ module EntityHelpers
     @stub_product3 = stub_get_request 'products/product3', json_string('product3')
     @stub_products = stub_get_request 'products', json_string('products')
     @stub_product_paged = stub_get_request 'products/page/2/2', json_string('products_paged')
-    @stub_product_fined = stub_get_request 'products/search', json_string('products_find'), {title: 'product title 1'}
+    @stub_product_fined = stub_get_request 'products/search', json_string('products_find'), 'product title 1'
   end
 
   def should_be_product_1(product)

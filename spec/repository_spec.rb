@@ -41,7 +41,7 @@ RSpec.describe Browet::Repository do
         expect(Browet::Cache.all.length).to eq(0)
         
         # product is returned
-        products = Browet::Product.find({title: 'product title 1'})
+        products = Browet::Product.find('product title 1')
         should_be_find_set  products
 
         # server request was made
@@ -77,7 +77,7 @@ RSpec.describe Browet::Repository do
           Browet::Config.ttl = 10
           timestamp = Time.now - (Browet::Config.ttl - 1)*Browet::Config::TTL_MULTIPLICATOR
           Browet::Cache.create(path: 'products/product1', 
-            locale: Browet::Config.get_tokenized_locale, params: {}, 
+            locale: Browet::Config.get_tokenized_locale, params: '', 
             json:json_string('product1'), updated_at: timestamp)
         end
 

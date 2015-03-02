@@ -20,10 +20,10 @@ module Browet
     end
 
     ##
-    # Returns set (Browet::ResultSet) of products found by given params
+    # Returns set (Browet::ResultSet) of products found by given search_query
     #
-    def self.find(params)
-      products = repository.find(params)
+    def self.find(search_query)
+      products = repository.find(search_query)
       form_products(products)
     end
 

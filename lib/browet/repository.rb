@@ -12,7 +12,7 @@ module Browet
     ##
     # Returns hash recived after http request or from cahce
     #
-    def self.http_get(path, params = {}, disable_cahce = false)
+    def self.http_get(path, search_query = '', disable_cahce = false)
 
       # check config
       raise ConfigError, 'Empty account in config' if Config.account.empty?
@@ -21,24 +21,24 @@ module Browet
       if !Config.enable_cache? or disable_cahce or (Config.ttl == 0)
 
         # request servers withowt cahce updating
-        JSON.parse(Requester.perform_now(path, params, false))
+        JSON.parse(Requester.perform_now(path, search_query, false))
 
       else
         
         # check for nondirty cached record
-        cached = Cache.get(path, params)
+        cached = Cache.get(path, search_query)
 
         if cached.nil?  # there is no nondirty record
           
           # try to get dirty record
-          cached = Cache.get(path, params, true)
+          cached = Cache.get(path, search_query, true)
           
           if cached.nil?  # there is no cached records
             # make request and update cahce
-            cached = Requester.perform_now(path, params)
+            cached = Requester.perform_now(path, search_query)
           else
             # make background cahce update
-            Requester.perform_later(path, params)
+            Requester.perform_later(path, search_query)
           end
 
         end
