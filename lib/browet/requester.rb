@@ -10,11 +10,11 @@ module Browet
     
     ##
     # Returns 
-    #   json string if update_cahche = false
-    #   Cache object if update_cahche = true
-    def perform(path, params, update_cahche = true)
+    #   json string if update_cache = false
+    #   Cache object if update_cache = true
+    def perform(path, params, update_cache = true)
       json = get_server_reply path, params
-      update_cahche ? Cache.set(path, params, json) : json
+      update_cache ? Cache.set(path, params, json) : json
     end
 
     protected
