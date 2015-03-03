@@ -3,14 +3,16 @@ module Browet
     extend self
 
     def autocomplite_search_product(css_class = 'browet-widget-autocomplite-search-product')
-      # "<select class=\"#{css_class}\">
-      # <option value=\"\" selected=\"selected\"></option>
-      # </select>
-      "<input class=\"#{css_class}\">
-      </input>
+      # "<input class=\"#{css_class}\">
+      # </input>
+      "<select class=\"#{css_class}\">
+      <option value=\"\" selected=\"selected\"></option>
+      </select>
       <script type=\"text/javascript\">
         var element = jQuery('.#{css_class}');
         element.selectize({
+          createOnBlur: true,
+          create: true,
           valueField: '#{Config.identity}',
           labelField: 'title',
           searchField: ['title', 'mpn'],
