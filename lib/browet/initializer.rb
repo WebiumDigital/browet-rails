@@ -23,7 +23,8 @@ Browet.init do |config|
   # Addressing type (:slug or :id)
   config.identity = :slug
 
-  # autocomplite url for product search widget
-  config.product_search_url = 'product_search_url'
-  
+  # product search widget
+  config.product_search_url = 'product_search_url'  # autocomplite url
+  config.product_search_autocomplite_length = 3     # min string length to triger autocomplite
+
 end
