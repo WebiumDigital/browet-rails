@@ -1,5 +1,7 @@
 module Browet
   module Widget
+    include ActionView::Helpers::OutputSafetyHelper # for raw function
+
     extend self
 
     def product_search_autocomplete(selectCallback, enterCallback, css_class = 'browet-widget-autocomplite-search-product')
@@ -36,7 +38,7 @@ module Browet
             // if (!query.length) return callback();
             if (query.length >= #{Config.product_search_autocomplete_length})
               $.ajax({
-                url: '/browet/#{Config.product_search_url}',
+                url: '/browet/#{Config.product_search_autocomplete_url}',
                 type: 'GET',
                 data: {
                     query: query,

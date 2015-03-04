@@ -7,7 +7,7 @@ module Browet
     extend self
     attr_writer :version, :account, :key, :ttl, :enable_cache,
       :localized_tokens, :default_token, :identity, 
-      :product_search_url, :product_search_autocomplete_length
+      :product_search_autocomplete_url, :product_search_autocomplete_length
 
     # number of seconds in the ttl unit
     TTL_MULTIPLICATOR = 60
@@ -43,8 +43,9 @@ module Browet
         @identity
       end
     end
-    def product_search_url
-      @product_search_url ||= 'product_search_url'
+    
+    def product_search_autocomplete_url
+      @product_search_autocomplete_url ||= 'product_search_autocomplete'
     end
     def product_search_autocomplete_length
       @product_search_autocomplete_length ||= 3

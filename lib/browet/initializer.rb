@@ -24,7 +24,7 @@ Browet.init do |config|
   config.identity = :slug
 
   # product search widget
-  config.product_search_url = 'product_search_url'  # autocomplete url
+  config.product_search_autocomplete_url = 'product_search_autocomplete'  # autocomplete url
   config.product_search_autocomplete_length = 3     # min string length to triger autocomplete
 
 end

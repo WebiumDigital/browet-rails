@@ -1,6 +1,6 @@
 module Browet
   class WidgetController < ApplicationController
-    def autocomplite_search_product
+    def product_search_autocomplete
       # prevent Not Modified response
       headers['Last-Modified'] = Time.now.httpdate
       
