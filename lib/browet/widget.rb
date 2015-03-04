@@ -9,6 +9,7 @@ module Browet
       "<select class=\"#{css_class}\">
       </select>
       <script type=\"text/javascript\">
+        var EMPTY_IDENTITY = 0;
         var selectize = jQuery('.#{css_class}').selectize({
           plugins: ['restore_on_backspace'],
           createOnBlur: true,
@@ -55,20 +56,20 @@ module Browet
             }
           },
           onChange: function(slug_or_id) {
-            if (slug_or_id != 0)
+            if (slug_or_id != EMPTY_IDENTITY)
               #{selectCallback}(slug_or_id);
           },
           onEnterKeyPress: function(value) {
             #{enterCallback}(value);
           }
         })[0].selectize;
-        onKeyDown = selectize.onKeyDown.bind(selectize);
+        var onKeyDown = selectize.onKeyDown.bind(selectize);
         selectize.onKeyDown = function(e) {
           var result = onKeyDown(e);
           if(e.keyCode == 13)  {
             //this.settings.onEnterKeyPress(this.items[0]);
             selectize.blur(); // to create entered nonexistant option
-            if (this.items.length > 0)
+            if ( (this.items.length > 0) && (this.options[this.items[0]].#{Config.identity} == EMPTY_IDENTITY) )
               this.settings.onEnterKeyPress(this.options[this.items[0]].title);
           }
           return result;
