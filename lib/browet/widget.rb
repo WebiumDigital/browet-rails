@@ -2,11 +2,11 @@ module Browet
   module Widget
     extend self
 
-    def autocomplete_search_product(selectCallback, enterCallback, css_class = 'browet-widget-autocomplite-search-product')
+    def product_search_autocomplete(selectCallback, enterCallback, css_class = 'browet-widget-autocomplite-search-product')
       # "<input class=\"#{css_class}\">
       # </input>
       # <option value=\"\" selected=\"selected\"></option>
-      "<select class=\"#{css_class}\">
+      raw "<select class=\"#{css_class}\">
       </select>
       <script type=\"text/javascript\">
         var EMPTY_IDENTITY = 0;
