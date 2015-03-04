@@ -2,15 +2,14 @@ module Browet
   module Widget
     extend self
 
-    def autocomplete_search_product(js_callback, css_class = 'browet-widget-autocomplite-search-product')
+    def autocomplete_search_product(selectCallback, enterCallback, css_class = 'browet-widget-autocomplite-search-product')
       # "<input class=\"#{css_class}\">
       # </input>
       # <option value=\"\" selected=\"selected\"></option>
       "<select class=\"#{css_class}\">
       </select>
       <script type=\"text/javascript\">
-        var element = jQuery('.#{css_class}');
-        element.selectize({
+        var selectize = jQuery('.#{css_class}').selectize({
           plugins: ['restore_on_backspace'],
           createOnBlur: true,
           create: function(input, callback) {
@@ -32,7 +31,7 @@ module Browet
           },
           load: function(query, callback) {
             // console.log('load: ' + query);
-            element[0].selectize.close();
+            // selectize.close();
             // if (!query.length) return callback();
             if (query.length >= #{Config.product_search_autocomplete_length})
               $.ajax({
@@ -52,14 +51,28 @@ module Browet
               //for (var i = 0; i < element[0].selectize.items.length; i++)
               //  element[0].selectize.removeItem(value, true);
               //element[0].selectize.refreshItems();
-              element[0].selectize.clearOptions();
+              selectize.clearOptions();
             }
           },
-          onChange: function(value) {
-            if (value != 0)
-              #{js_callback}(value);
+          onChange: function(slug_or_id) {
+            if (slug_or_id != 0)
+              #{selectCallback}(slug_or_id);
+          },
+          onEnterKeyPress: function(value) {
+            #{enterCallback}(value);
           }
-        });
+        })[0].selectize;
+        onKeyDown = selectize.onKeyDown.bind(selectize);
+        selectize.onKeyDown = function(e) {
+          var result = onKeyDown(e);
+          if(e.keyCode == 13)  {
+            //this.settings.onEnterKeyPress(this.items[0]);
+            selectize.blur(); // to create entered nonexistant option
+            if (this.items.length > 0)
+              this.settings.onEnterKeyPress(this.options[this.items[0]].title);
+          }
+          return result;
+        }.bind(selectize);
       </script>
       "
     end
