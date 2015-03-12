@@ -7,6 +7,82 @@
 4. Run rake `rake db:migrate`
 5. Modify Browet API **account** and **key** in config/initialize/browet.rb.
 
+
+## Main classes
+
+### Browet::Group
+#### Class methods
+`list()` returns groups list (`Browet::ResultSet` instance).
+
+`get(slug_or_id)` returns group (`Browet::Group` instance).
+- `slug_or_id` - `slug` or `id` (depending on gem config) of the group.
+
+#### Instance methods
+`products(page = nil, limit = nil)` returns products list chunk of the group (`Browet::ResultSe`t instance). Returns full product list in case of `page` or `limit` is `nil`.
+- `page` - chunk number to get, 
+- `limit` - chunk size.
+
+#### Instance attributes
+- `id`
+- `title`
+- `name`
+- `slug`
+- `categories` (array of `Browet::Category` instances)
+
+### Browet::Category
+#### Class methods
+`get(slug_or_id)` returns category (`Browet::Category` instance).
+- `slug_or_id` - `slug` or `id` (depending on gem config) of the category.
+
+#### Instance methods
+`products(page = nil, limit = nil)` returns products list chunk of the category (`Browet::ResultSet` instance). Returns full product list in case of `page` or `limit` is `nil`.
+- `page` - chunk number to get, 
+- `limit` - chunk size.
+
+#### Instance attributes
+- `id`
+- `title`
+- `parent_id`
+- `group_id`
+- `slug`
+- `subcategories` (array of `Browet::Category` instances)
+
+### Browet::Product
+#### Class methods
+`list(page = nil, limit = nil)`  returns products list chunk (`Browet::ResultSet` instance). Returns full product list in case of `page` or `limit` is `nil`.
+- `page` - chunk number to get, 
+- `limit` - chunk size.
+
+`get(slug_or_id)` returns product (`Browet::Products` instance).
+- `slug_or_id` - `slug` or `id` (depending on gem config) of the product.
+
+`find(search_query)`  returns products list (`Browet::ResultSe`t instance).
+- `search_query` - query srting
+
+#### Instance methods
+
+#### Instance attributes
+- `id`
+- `description`
+- `title`
+- `guid`
+- `mpn`
+- `slug`
+- `availability`
+- `gtin`
+- `currency`
+
+### Browet::ResultSet
+Chunked (paged) result set
+#### Instance methods
+- `each`
+- `[]`
+- `length`
+
+#### Instance attributes
+- `total_count` - total number of items
+- `pages` - total number of chunks
+
 ## Widgets Usage
 To use widgets:
 1. Add `//= require browet` to app/assets/javascript/application.js
