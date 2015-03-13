@@ -2,9 +2,10 @@ module EntityHelpers
   include WebMock::API
 
   # stub http request
-  def stub_get_request(path, success_body = "", query_params = {}, success_headers = {})
+  def stub_get_request(path, success_body = "", search_query = '', success_headers = {})
+    params = search_query.blank? ? {} : {search_query: search_query}
     WebMock.stub_request(:get, Browet::Config.api_url + "/#{path}").
-      with(:query => query_params.merge({"token" => Browet::Config.default_token})).
+      with(:query => params.merge({"token" => Browet::Config.default_token})).
       to_return(:status => 200, :body => success_body, :headers => success_headers)
   end
 

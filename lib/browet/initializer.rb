@@ -14,10 +14,17 @@ Browet.init do |config|
     # :en => 'token for en locale'
   }
 
-  # Cache life time (hours)
-  config.ttl = 8
+  # Cache life time (minutes)
+  config.ttl = 10
 
   # Disable cache
   config.enable_cache = true
+
+  # Addressing type (:slug or :id)
+  config.identity = :slug
+
+  # product search widget
+  config.product_search_autocomplete_url = 'product_search_autocomplete'  # autocomplete url
+  config.product_search_autocomplete_length = 3     # min string length to triger autocomplete
 
 end

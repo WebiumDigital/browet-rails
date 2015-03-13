@@ -2,6 +2,7 @@
   "id": 1,
   "title": "group title 1",
   "name": "group name 1",
+  "slug": "group1",
   "categories": [
     {
       "id": 1,
@@ -10,7 +11,7 @@
       "group_id": 1,
       "visible" : null,
       "position" : 2,
-      "slug": "category slug 1",
+      "slug": "category1",
       "group" : {
         "id": 1,
         "name": "group name 1",
@@ -24,7 +25,7 @@
           "group_id": 1,
           "visible" : null,
           "position" : 1,
-          "slug": "category slug 3",
+          "slug": "category3",
           "group" : {
             "id": 1,
             "name": "group name 1",
@@ -41,7 +42,7 @@
       "group_id": 2,
       "visible" : null,
       "position" : 1,
-      "slug": "category slug 2",
+      "slug": "category2",
       "group" : {
         "id": 2,
         "name": "group name 2",

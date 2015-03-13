@@ -3,10 +3,10 @@ module EntityHelpers
   def group_init
     config_init
     @stub_groups = stub_get_request 'categories_groups', json_string('groups')
-    @stub_group1 = stub_get_request 'categories_groups/1', json_string('group1')
-    @stub_group2 = stub_get_request 'categories_groups/2', json_string('group2')
-    @stub_group_products = stub_get_request 'categories_groups/1/products', json_string('products')
-    @stub_group_produxts_paged = stub_get_request 'categories_groups/1/products/page/2/2', json_string('products_paged')
+    @stub_group1 = stub_get_request 'categories_groups/group1', json_string('group1')
+    @stub_group2 = stub_get_request 'categories_groups/group2', json_string('group2')
+    @stub_group_products = stub_get_request 'categories_groups/group1/products', json_string('products')
+    @stub_group_produxts_paged = stub_get_request 'categories_groups/group1/products/page/2/2', json_string('products_paged')
   end
 
   def should_be_group_1(group)
@@ -14,6 +14,7 @@ module EntityHelpers
     expect(group.id).to eq(1)
     expect(group.title).to eq('group title 1')
     expect(group.name).to eq('group name 1')
+    expect(group.slug).to eq('group1')
     expect(group.categories).to be_a(Array)
     expect(group.categories).not_to be_empty
     
@@ -21,6 +22,7 @@ module EntityHelpers
     expect(category1).to be_a(Browet::Category)
     expect(category1.id).to eq(1)
     expect(category1.title).to eq('category title 1')
+    expect(category1.slug).to eq('category1')
     expect(category1.parent_id).to be_nil
     expect(category1.group_id).to eq(1)
     expect(category1.subcategories).to be_a(Array)
@@ -30,6 +32,7 @@ module EntityHelpers
     expect(category3).to be_a(Browet::Category)
     expect(category3.id).to eq(3)
     expect(category3.title).to eq('category title 3')
+    expect(category3.slug).to eq('category3')
     expect(category3.parent_id).to eq(1)
     expect(category3.group_id).to eq(1)
     expect(category3.subcategories).to be_a(Array)
@@ -39,6 +42,7 @@ module EntityHelpers
     expect(category2).to be_a(Browet::Category)
     expect(category2.id).to eq(2)
     expect(category2.title).to eq('category title 2')
+    expect(category2.slug).to eq('category2')
     expect(category2.parent_id).to be_nil
     expect(category2.group_id).to eq(2)
     expect(category2.subcategories).to be_a(Array)
@@ -50,6 +54,7 @@ module EntityHelpers
     expect(group.id).to eq(2)
     expect(group.title).to eq('group title 2')
     expect(group.name).to eq('group name 2')
+    expect(group.slug).to eq('group2')
     expect(group.categories).to be_a(Array)
     expect(group.categories).to be_empty
   end

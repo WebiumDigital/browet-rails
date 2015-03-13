@@ -1,23 +1,8 @@
 require 'json'
-require 'active_record'
+require 'browet/requester'
+require "browet/cache"
 
 module Browet
-
-  ##
-  # Cache for saving http requests and replies
-  #
-  class Cache < ::ActiveRecord::Base
-    self.table_name = 'browet_cache'
-    serialize :params, JSON
-
-    ##
-    # Returns cahced request
-    #
-    def self.get(path, params = {})
-      where('path=?', path).where('params=? AND locale=?', 
-        params.to_json, Browet::Config.get_tokenized_locale).first
-    end
-  end
 
   ##
   # Base class fore object repositories
@@ -27,35 +12,33 @@ module Browet
     ##
     # Returns hash recived after http request or from cahce
     #
-    def self.http_get(path, params = {})
+    def self.http_get(path, search_query = '', disable_cahce = false)
 
       # check config
-      raise Browet::ConfigError, 'Empty account in config' if Browet::Config.account.empty?
-      raise Browet::ConfigError, 'Empty default_token in config' if Browet::Config.default_token.empty?
+      raise ConfigError, 'Empty account in config' if Config.account.empty?
+      raise ConfigError, 'Empty default_token in config' if Config.default_token.empty?
 
-      unless Browet::Config.enable_cache?
+      if !Config.enable_cache? or disable_cahce or (Config.ttl == 0)
 
-        # request servers if cache is disabled
-        JSON.parse(get_server_reply(path, params))
+        # request servers withowt cahce updating
+        JSON.parse(Requester.perform_now(path, search_query, false))
 
       else
         
-        # check for cached record
-        cached = Browet::Cache.get(path, params)
+        # check for nondirty cached record
+        cached = Cache.get(path, search_query)
 
-        if cached.nil? or (cached.updated_at < expired_time)
+        if cached.nil?  # there is no nondirty record
           
-          # send http request in case of empty or dirty cache
-          begin
-            json = get_server_reply(path, params)
-            if cached.nil?
-              cached = Browet::Cache.create!(path: path, params: params, 
-                json: json, locale: Browet::Config.get_tokenized_locale)
-            else
-              cached.update!(updated_at: Time.now)
-            end
-          rescue Timeout::Error => e
-            raise e if cached.nil?
+          # try to get dirty record
+          cached = Cache.get(path, search_query, true)
+          
+          if cached.nil?  # there is no cached records
+            # make request and update cahce
+            cached = Requester.perform_now(path, search_query)
+          else
+            # make background cahce update
+            Requester.perform_later(path, search_query)
           end
 
         end
@@ -73,38 +56,13 @@ module Browet
     end
 
     ##
-    # Stubs get method
+    # Stubs get method (by slug or id)
     #
     def self.get(id)
       raise "method self.get not implemented"
     end
 
     protected
-
-      ##
-      # Returns http reply body
-      #
-      def self.get_server_reply(path, params)
-          uri = URI("#{Browet::Config.api_url}/#{path}")
-          locale = Browet::Config.get_tokenized_locale 
-          token = locale.blank? ?
-            Browet::Config.default_token :
-            Browet::Config.localized_tokens[locale]
-          uri.query = URI.encode_www_form(params.merge({token: token}))
-          res = Net::HTTP.get_response(uri)
-          raise Browet::HttpError, res.code unless res.is_a?(Net::HTTPSuccess)
-          res.body
-      end
-
-      ##
-      # Caclulates cache expiration time
-      #
-      def self.expired_time
-        # get DB time
-        sql = "SELECT CURRENT_TIMESTAMP"
-        db_time = Browet::Cache.connection.select_value(sql).to_time
-        db_time - Browet::Config.ttl*3600
-      end
 
       ##
       # Retuns path suffix for paged request
