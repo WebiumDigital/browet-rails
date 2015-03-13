@@ -1,3 +1,5 @@
+require 'action_view'
+
 module Browet
   module Widget
     include ActionView::Helpers::OutputSafetyHelper # for raw function
