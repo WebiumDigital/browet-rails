@@ -1,6 +1,6 @@
 //= require selectize
 function browetProductSearchAutocomplete(
-  cssClass, autocompleteLength, autocompleteUrl, identity,
+  elemnetId, autocompleteLength, autocompleteUrl, identity,
   renderCallback, onChangeCallback, onEnterKeyPressCallback
   ) {
   
@@ -12,7 +12,7 @@ function browetProductSearchAutocomplete(
     };
 
   var EMPTY_IDENTITY = 0;
-  var selectize = jQuery('.' + cssClass).selectize({
+  var selectize = jQuery('#' + elemnetId).selectize({
     plugins: ['restore_on_backspace'],
     createOnBlur: true,
     create: function(input, callback) {
