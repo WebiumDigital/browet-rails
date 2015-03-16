@@ -23,6 +23,9 @@ Browet.init do |config|
   # Addressing type (:slug or :id)
   config.identity = :slug
 
+  # service url for widgets (widget related url isolation)
+  config.widgets_root_url = 'browet'
+
   # product search widget
   config.product_search_autocomplete_url = 'product_search_autocomplete'  # autocomplete url
   config.product_search_autocomplete_length = 3     # min string length to triger autocomplete

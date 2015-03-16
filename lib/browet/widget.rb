@@ -14,7 +14,7 @@ module Browet
         <script type=\"text/javascript\">
           browetProductSearchAutocomplete(
             '#{html_id}', #{Config.product_search_autocomplete_length},
-            '/browet/#{Config.product_search_autocomplete_url}',
+            '/#{Config.widgets_root_url}/#{Config.product_search_autocomplete_url}',
             '#{Config.identity}',
             #{render_callback.nil? ? 'undefined' : render_callback}, 
             #{select_callback}, #{enter_callback});

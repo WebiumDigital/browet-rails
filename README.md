@@ -86,7 +86,8 @@ Chunked (paged) result set
 ## Widgets Usage
 1. Add `//= require browet` to app/assets/javascript/application.js
 2. Add ` *= require browet` to app/assets/stylesheets/application.css  
-3. Use `Browet::Widget.widget_name(*args)` in views (OR add `include Browet::Widget` in app/helpers/application_helper.rb and use `widget_name(*args)` in views)
+3. Add `mount Browet::Engine => Browet::Config.widgets_root_url` to config/routes.rb
+4. Use `Browet::Widget.widget_name(*args)` in views (OR add `include Browet::Widget` in app/helpers/application_helper.rb and use `widget_name(*args)` in views)
 
 ## Widgets
 ### product_search_autocomplete
