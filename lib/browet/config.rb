@@ -44,6 +44,9 @@ module Browet
       end
     end
     
+    def widgets_root_url
+      @widgets_root_url ||= 'browet'
+    end
     def product_search_autocomplete_url
       @product_search_autocomplete_url ||= 'product_search_autocomplete'
     end
