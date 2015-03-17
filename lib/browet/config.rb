@@ -5,7 +5,7 @@ module Browet
   #
   module Config
     extend self
-    attr_writer :version, :account, :key, :ttl, :enable_cache,
+    attr_writer :protocol, :name_server, :version_api, :account, :key, :ttl, :enable_cache,
       :localized_tokens, :default_token, :identity,
       :product_search_autocomplete_url, :product_search_autocomplete_length
 
