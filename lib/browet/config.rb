@@ -1,12 +1,12 @@
 module Browet
-  
-  ## 
+
+  ##
   # Gem config with defaults
   #
   module Config
     extend self
     attr_writer :version, :account, :key, :ttl, :enable_cache,
-      :localized_tokens, :default_token, :identity, 
+      :localized_tokens, :default_token, :identity,
       :product_search_autocomplete_url, :product_search_autocomplete_length
 
     # number of seconds in the ttl unit
@@ -43,7 +43,7 @@ module Browet
         @identity
       end
     end
-    
+
     def product_search_autocomplete_url
       @product_search_autocomplete_url ||= 'product_search_autocomplete'
     end

@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Browet::VERSION
   s.authors     = ["WebiumDigital"]
   s.email       = ["w@webium.digital"]
-  s.homepage    = "https://github.com/WebiumDigital/browet"
+  s.homepage    = "https://github.com/WebiumDigital/browet-rails"
   s.summary     = "Rails plugin for http://browet.com."
   s.description = "Rails plugin for http://browet.com."
   s.license     = "MIT"
