@@ -20,7 +20,7 @@ module Browet
 
     # Accessors with default values
     def protocol
-      @name_server ||= 'http'
+      @protocol ||= 'http'
     end
 
     def name_server
@@ -28,7 +28,7 @@ module Browet
     end
 
     def version_api
-      @version ||= 'v1'
+      @version_api ||= 'v1'
     end
 
     def account
