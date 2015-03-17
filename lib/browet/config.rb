@@ -12,10 +12,9 @@ module Browet
     # Number of seconds in the ttl unit
     TTL_MULTIPLICATOR = 60
 
-    protected
-      def api_url
-        "#{protocol}://#{account}.#{name_server}/api/#{version_api}"
-      end
+    def api_url
+      "#{protocol}://#{account}.#{name_server}/api/#{version_api}"
+    end
 
 
     # Accessors with default values
