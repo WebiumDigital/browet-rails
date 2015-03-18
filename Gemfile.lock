@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    browet (0.0.5)
+    browet (0.0.33)
       json
       rails (~> 4.2.0)
 
