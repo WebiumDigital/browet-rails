@@ -20,9 +20,6 @@ Browet.init do |config|
   # Disable cache
   config.enable_cache = true
 
-  # Addressing type (:slug or :id)
-  config.identity = :slug
-
   # service url for widgets (widget related url isolation)
   config.widgets_root_url = 'browet'
 

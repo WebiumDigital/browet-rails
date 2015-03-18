@@ -14,8 +14,8 @@
 #### Class methods
 `list()` returns groups list (`Browet::ResultSet` instance).
 
-`get(slug_or_id)` returns group (`Browet::Group` instance).
-- `slug_or_id` - `slug` or `id` (depending on gem config) of the group.
+`get(slug)` returns group (`Browet::Group` instance).
+- `slug` - slug of the group.
 
 #### Instance methods
 `products(page = nil, limit = nil)` returns products list chunk of the group (`Browet::ResultSe`t instance). Returns full product list in case of `page` or `limit` is `nil`.
@@ -32,7 +32,7 @@
 ### Browet::Category
 #### Class methods
 `get(slug_or_id)` returns category (`Browet::Category` instance).
-- `slug_or_id` - `slug` or `id` (depending on gem config) of the category.
+- `slug` - slug of the category.
 
 #### Instance methods
 `products(page = nil, limit = nil)` returns products list chunk of the category (`Browet::ResultSet` instance). Returns full product list in case of `page` or `limit` is `nil`.
@@ -54,7 +54,7 @@
 - `limit` - chunk size.
 
 `get(slug_or_id)` returns product (`Browet::Products` instance).
-- `slug_or_id` - `slug` or `id` (depending on gem config) of the product.
+- `slug` - slug of the product.
 
 `find(search_query)`  returns products list (`Browet::ResultSe`t instance).
 - `search_query` - query srting
