@@ -4,8 +4,6 @@ require "browet/category"
 require "browet/product"
 require "browet/result_set"
 require "browet/error"
-require "browet/engine"
-require "browet/widget"
 require 'browet/railtie' if defined?(Rails)
 
 

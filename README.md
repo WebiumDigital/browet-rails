@@ -83,19 +83,3 @@ Chunked (paged) result set
 - `total_count` - total number of items
 - `pages` - total number of chunks
 
-## Widgets Usage
-1. Add `//= require browet` to app/assets/javascript/application.js
-2. Add ` *= require browet` to app/assets/stylesheets/application.css  
-3. Add `mount Browet::Engine => Browet::Config.widgets_root_url` to config/routes.rb
-4. Use `Browet::Widget.widget_name(*args)` in views (OR add `include Browet::Widget` in app/helpers/application_helper.rb and use `widget_name(*args)` in views)
-
-## Widgets
-### product_search_autocomplete
-Renders product search field with drop-down autocomplete based on [selectize.js](https://github.com/brianreavis/selectize.js)
-
-`Browet::Widget::product_search_autocomplete(select_callback, enter_callback, render_callback, html_id, html_attrs)`
-  - `select_callback` - (nil or string, _mandatory_) js-function name or js-closure which is fired when product is selected from drop-down list (for example: `function(slug_or_id) { console.log('selectCallback: ' + slug_or_id); }`)
-  - `enter_callback` - (nil or string, _mandatory_) js-function name or js-closure which is fired when enter key is pressed within input field (for example: `function(string) { console.log('enterCallback: ' + string); }`)
-  - `render_callback` - (nil or string, _optional_) js-function name or js-closure which is responsable for product rendering in drop-down list (default: `function(item, escape) { return '<div class=\"item\"><div class=\"title\">' + escape(item.title) + '</div><div class=\"mpn\">' + escape(item.mpn) + '</div></div>'; }`)
-  - `html_id` - (string, _optional_) html id attribute of the widget select element (default: `browet-widget-product-search-autocomplite`)
-  - `html_attrs` - (hash, _optional_) html attributes of the widget select element (default: `{}`)
