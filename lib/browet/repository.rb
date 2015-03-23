@@ -4,9 +4,6 @@ require "browet/cache"
 
 module Browet
 
-  ##
-  # Base class fore object repositories
-  #
   class Repository
 
     ##
@@ -24,15 +21,15 @@ module Browet
         JSON.parse(Requester.perform_now(path, search_query, false))
 
       else
-        
+
         # check for nondirty cached record
         cached = Cache.get(path, search_query)
 
         if cached.nil?  # there is no nondirty record
-          
+
           # try to get dirty record
           cached = Cache.get(path, search_query, true)
-          
+
           if cached.nil?  # there is no cached records
             # make request and update cahce
             cached = Requester.perform_now(path, search_query)
@@ -56,7 +53,7 @@ module Browet
     end
 
     ##
-    # Stubs get method (by slug or id)
+    # Stubs get method
     #
     def self.get(id)
       raise "method self.get not implemented"

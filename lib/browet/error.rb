@@ -1,7 +1,7 @@
 module Browet
 
   class ConfigError < StandardError
-    def initialize(message = 'Invalid congig parameter')
+    def initialize(message = 'Invalid config parameter')
       super
     end
   end
