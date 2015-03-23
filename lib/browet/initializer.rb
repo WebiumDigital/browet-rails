@@ -2,7 +2,7 @@
 Browet.init do |config|
 
   # Browet API URL
-  config.version = 'v1'
+  config.version_api = 'v1'
 
   # Browet API account
   config.account = ''
@@ -19,12 +19,5 @@ Browet.init do |config|
 
   # Disable cache
   config.enable_cache = true
-
-  # Addressing type (:slug or :id)
-  config.identity = :slug
-
-  # product search widget
-  config.product_search_autocomplete_url = 'product_search_autocomplete'  # autocomplete url
-  config.product_search_autocomplete_length = 3     # min string length to triger autocomplete
 
 end

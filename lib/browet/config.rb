@@ -5,9 +5,9 @@ module Browet
   #
   module Config
     extend self
-    attr_writer :protocol, :name_server, :version_api, :account, :key, :ttl, :enable_cache,
-      :localized_tokens, :default_token, :identity,
-      :product_search_autocomplete_url, :product_search_autocomplete_length
+
+    attr_writer :protocol, :name_server, :version_api, :account, :key, :ttl, 
+      :enable_cache, :localized_tokens, :default_token
 
     # Number of seconds in the ttl unit
     TTL_MULTIPLICATOR = 60
@@ -49,27 +49,7 @@ module Browet
     def enable_cache?
       @enable_cache ||= false
     end
-
-
-    #What?
-    def identity
-      if @identity.blank?
-        :slug
-      else
-        raise ConfigError('Inavlid identity parameter in config') unless [:slug, :id].include? @identity
-        @identity
-      end
-    end
-
-
-    def product_search_autocomplete_url
-      @product_search_autocomplete_url ||= 'product_search_autocomplete'
-    end
-
-    def product_search_autocomplete_length
-      @product_search_autocomplete_length ||= 3
-    end
-
+    
     def get_tokenized_locale
       localized_tokens[I18n.locale].blank? ? '' : I18n.locale
     end
