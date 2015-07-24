@@ -1,5 +1,6 @@
 require 'active_job'
 require "browet/cache"
+require 'net/http'
 
 module Browet
 
